@@ -11,6 +11,10 @@ int check_cycle(listint_t *list)
 	listint_t *once;
 	listint_t *twice;
 
+	if (list == NULL || list->next == NULL)
+	{
+		return (0);
+	}
 	once = list;
 	twice = list;
 

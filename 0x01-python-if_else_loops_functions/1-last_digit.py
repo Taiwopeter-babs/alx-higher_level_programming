@@ -2,12 +2,14 @@
 import random
 number = random.randint(-10000, 10000)
 
-result = number % 10
+num = number
+
+result = num % 10
 
 if (number < 0):
     result *= -1
 
-string = "The last digit of {} is {}".format(number, result)
+string = "Last digit of {} is {}".format(number, result)
 
 if (result > 5):
     print(string + ' ' + "and is greater than 5")

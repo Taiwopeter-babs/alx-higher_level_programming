@@ -53,7 +53,7 @@ listint_t *insert_node(listint_t **head, int number)
 
 			while (less->next != NULL)
 			{
-				/* add node in between the list */
+				/* get node with lower data value than data in new node */
 				if (less->n < new_node->n && ((less->next)->n > new_node->n))
 					break;
 
@@ -77,7 +77,7 @@ listint_t *insert_node(listint_t **head, int number)
 				less = less->next;
 			}
 			
-			/* add node with lower data value in between linked list */
+			/* get node with greater data value than data in new node */
 			while (great != NULL)
 			{
 				if (great->n > new_node->n)
@@ -85,7 +85,7 @@ listint_t *insert_node(listint_t **head, int number)
 				great = great->next;
 			}
 	
-			/* set node->next pointers */
+			/* set node->next pointers and add in between the list */
 			less->next = new_node;
 			new_node->next = great;
 		}

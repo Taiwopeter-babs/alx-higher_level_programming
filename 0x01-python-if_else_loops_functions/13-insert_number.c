@@ -52,6 +52,12 @@ listint_t *insert_node(listint_t **head, int number)
 					less->next = new_node;
 					return (new_node);
 				}
+				else if (less->n < new_node->n && less->next == NULL)
+				{
+					new_node->next = NULL;
+					less->next = new_node;
+					return (new_node);
+				}
 				less = less->next;
 			}
 
@@ -59,13 +65,6 @@ listint_t *insert_node(listint_t **head, int number)
 			{
 				if (great->n > new_node->n)
 					break;
-				
-				else if (great->n < new_node->n && great->next == NULL)
-				{
-					new_node->next = NULL;
-					great->next = new_node;
-					return (new_node);
-				}
 				great = great->next;
 			}
 	

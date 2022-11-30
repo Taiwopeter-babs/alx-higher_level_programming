@@ -42,7 +42,7 @@ listint_t *insert_node(listint_t **head, int number)
 			less = *head;
 			great = *head;
 
-			while (less != NULL)
+			while (less->next != NULL)
 			{
 				if (less->n < new_node->n && ((less->next)->n > new_node->n))
 					break;

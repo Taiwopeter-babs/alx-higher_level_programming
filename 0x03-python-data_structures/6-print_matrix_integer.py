@@ -3,10 +3,6 @@
 
 def print_matrix_integer(matrix=[[]]):
 
-    if (matrix == []):
-        print()
-
-    for row in matrix:
-        for value in row:
-            print("{:d}".format(value), end=' ')
-        print()
+    matrix_rev = '\n'.join([' '.join(["{:d}".format(val) for val in row])
+                            for row in matrix])
+    print(matrix_rev)

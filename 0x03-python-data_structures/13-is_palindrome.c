@@ -15,7 +15,7 @@ int is_palindrome(listint_t **head)
 	if (*head == NULL)
 		return (1);
 	temp = *head;
-	/* get number of nodes and set halfway point accordingly */
+
 	total_nodes = num_of_nodes(head);
 	if (total_nodes % 2 == 0)
 		half_total = total_nodes / 2;
@@ -23,8 +23,9 @@ int is_palindrome(listint_t **head)
 		half_total = (total_nodes + 1) / 2;
 
 	/* set temp to middle of linked list; saves first half to head */
-	for (mid_pos = 1; mid_pos < half_total; mid_pos++)
+	for (mid_pos = 0; mid_pos < half_total; mid_pos++)
 		temp = temp->next;
+	print_listint(temp);
 
 	/* reverse the midpoint set above and set to new list */
 	new = reverse_list(&(temp));

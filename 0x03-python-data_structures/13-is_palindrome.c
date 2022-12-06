@@ -55,7 +55,6 @@ int num_of_nodes(listint_t **head)
 		num++;
 		temp = temp->next;
 	}
-	printf("\n\nnodes = %d\n", num);
 	return (num);
 }
 /**

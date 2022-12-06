@@ -2,6 +2,10 @@
 
 
 def print_reversed_list_integer(my_list=[]):
+
+    if (not my_list):
+        return
+
     length = len(my_list) - 1
 
     while (length >= 0):

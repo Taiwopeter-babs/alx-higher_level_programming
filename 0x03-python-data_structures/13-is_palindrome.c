@@ -25,8 +25,6 @@ int is_palindrome(listint_t **head)
 	/* set temp to middle of linked list; saves first half to head */
 	for (mid_pos = 0; mid_pos < half_total; mid_pos++)
 		temp = temp->next;
-	print_listint(temp);
-
 	/* reverse the midpoint set above and set to new list */
 	new = reverse_list(&(temp));
 

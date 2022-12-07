@@ -3,7 +3,7 @@
 
 def uniq_add(my_list=[]):
     if (not my_list):
-        return
+        return (None)
 
     # convert to set to remove duplicate items and back to list
     new = list((set(my_list)))

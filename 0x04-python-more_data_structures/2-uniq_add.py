@@ -4,6 +4,8 @@
 def uniq_add(my_list=[]):
     if (not my_list):
         return (None)
+    if (len(my_list) == 1):
+        return (my_list[0])
 
     # convert to set to remove duplicate items and back to list
     new = list((set(my_list)))

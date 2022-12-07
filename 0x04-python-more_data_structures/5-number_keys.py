@@ -3,7 +3,7 @@
 
 def number_keys(a_dictionary):
     if (not a_dictionary):
-        return
+        return (0)
 
     new = list(a_dictionary)
 

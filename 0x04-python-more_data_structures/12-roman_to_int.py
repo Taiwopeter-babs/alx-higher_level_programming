@@ -15,9 +15,8 @@ def roman_to_int(roman_string):
             else:
                 if (rom_num[char] < rom_num[roman_string[idx + 1]]):
                     rom_num[char] *= -1
-                    converted += rom_num[char]
-                else:
-                    converted += rom_num[char]
+
+                converted += rom_num[char]
         else:
             converted += rom_num[char]
 

@@ -3,7 +3,10 @@
 
 def update_dictionary(a_dictionary, key, value):
     if (not a_dictionary):
-        return
+        if (not key):
+            return
+        else:
+            a_dictionary[key] = value
 
     if (key in a_dictionary):
         a_dictionary[key] = value

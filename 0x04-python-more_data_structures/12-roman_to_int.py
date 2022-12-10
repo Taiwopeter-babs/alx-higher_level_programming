@@ -5,7 +5,7 @@ def roman_to_int(roman_string):
     rom_num = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
     converted = 0
 
-    if (not roman_string):
+    if (not roman_string or type(roman_string) is not str):
         return (0)
 
     for idx, char in enumerate(roman_string):

@@ -12,7 +12,7 @@ def safe_function(fct, *args):
     Return: result of the function, otherwise None and print
             to stderr the Exception
     """
-    if (args):
+    if (args and fct):
         try:
             if not fct(*args):
                 raise Exception

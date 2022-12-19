@@ -20,4 +20,4 @@ def safe_print_integer(value):
         else:
             return (True)
     else:
-        return (None)
+        return (False)

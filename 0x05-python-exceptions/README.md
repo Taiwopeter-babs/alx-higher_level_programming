@@ -22,3 +22,17 @@ else:
 finally:
     # excecutes regardless
 ```
+## Notes on else statements
+I observed that some else statements in try/except except blocks are unnecessary. For example
+```py
+def print_integer(val):
+
+	try:
+	    print("{:d}".format(value))
+	except (TypeError, ValueError):
+	    return (False)
+	else:		# Unecessary else statement
+            return (True)
+```
+Instead, the boolean value should just be returned after the code in the ```try``` block sucessfully executes
+like ```py return (True)```

@@ -35,4 +35,12 @@ def print_integer(val):
             return (True)
 ```
 Instead, the boolean value should just be returned after the code in the ```try``` block sucessfully executes
-like ```return (True)```
+like this
+```py
+	try:
+	    print("{:d}".format(value))
+	except (TypeError, ValueError):
+	    return (False)
+
+	return (True) # returns if no exception is caught.
+```

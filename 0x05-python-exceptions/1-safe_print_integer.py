@@ -12,9 +12,12 @@ def safe_print_integer(value):
                     True if value is an integer and correctly printed
                     otherwise False
     """
-    try:
-        print("{:d}".format(value))
-    except ValueError:
-        return (False)
+    if (value):
+        try:
+            print("{:d}".format(value))
+        except ValueError:
+            return (False)
+        else:
+            return (True)
     else:
-        return (True)
+        return (None)

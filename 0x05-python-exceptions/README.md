@@ -35,4 +35,4 @@ def print_integer(val):
             return (True)
 ```
 Instead, the boolean value should just be returned after the code in the ```try``` block sucessfully executes
-like ```py return (True)```
+like ```return (True)```

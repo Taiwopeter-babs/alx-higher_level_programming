@@ -16,7 +16,7 @@ try:
     execute statement(s)
 except (Exception(s)):
     do stuff about exception
-    raise
+    raise (_useful when exceptions are to be re-raised_) 
 else:
     executes when there is no exception
 finally:

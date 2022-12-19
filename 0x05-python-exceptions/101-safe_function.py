@@ -12,17 +12,11 @@ def safe_function(fct, *args):
     Return: result of the function, otherwise None and print
             to stderr the Exception
     """
-    if (args and fct):
-        try:
-            if not fct(*args):
-                raise Exception
-
-        except (TypeError, ValueError, Exception) as err:
-            print("Exception:", err, file=sys.stderr)
-
-            return (None)
-
-        else:
-            return (fct(*args))
-    else:
+    try:
+        if not fct(*args):
+            raise Exception
+    except (TypeError, ValueError, Exception) as err:
+        print("Exception:", err, file=sys.stderr)
         return (None)
+    else:
+        return (fct(*args))

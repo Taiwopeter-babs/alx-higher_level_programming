@@ -24,4 +24,4 @@ def safe_print_integer_err(value):
         else:
             return (True)
     else:
-        return
+        return (None)

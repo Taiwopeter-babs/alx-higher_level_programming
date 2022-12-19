@@ -13,10 +13,7 @@ def safe_function(fct, *args):
             to stderr the Exception
     """
     try:
-        if not fct(*args):
-            raise Exception
+        return (fct(*args))
     except (TypeError, ValueError, Exception) as err:
         print("Exception:", err, file=sys.stderr)
         return (None)
-    else:
-        return (fct(*args))

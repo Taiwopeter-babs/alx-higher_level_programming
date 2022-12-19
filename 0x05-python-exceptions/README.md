@@ -13,12 +13,12 @@ All python scripts have ```#!usr/bin/python3``` as the first line and can be run
 #!/usr/bin/python3
 
 try:
-    execute statement(s)
+    # execute statement(s)
 except (Exception(s)):
-    do stuff about exception
-    raise (_useful when exceptions are to be re-raised_) 
+	# do stuff about exception
+    raise # useful when exceptions are to be re-raised 
 else:
-    executes when there is no exception
+    # executes when there is no exception
 finally:
-    excecutes regardless
+    # excecutes regardless
 ```

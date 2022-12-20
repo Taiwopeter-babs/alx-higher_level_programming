@@ -79,7 +79,8 @@ class Square:
     def position(self, value):
         try:
             for idx, item in enumerate(value):
-                if (value[idx] < 0 or type(value[idx]) != int):
+                if (value[idx] < 0 or type(value[idx]) != int or
+                        len(value) != 2):
                     raise TypeError("position must be a tuple"
                                     "of 2 positive integers")
             if (type(value) != tuple):
@@ -104,6 +105,7 @@ class Square:
         """
         if (self.__size == 0):
             print()
+            return
 
         else:
             for line in range(self.__position[1]):

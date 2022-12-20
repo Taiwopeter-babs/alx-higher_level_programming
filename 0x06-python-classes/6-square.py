@@ -72,7 +72,6 @@ class Square:
 
         Returns:
             position -> tuple
-
         """
         return (self.__position)
 
@@ -96,7 +95,6 @@ class Square:
 
         Returns:
             integer value of area
-
         """
         return (self.__size ** 2)
 
@@ -113,7 +111,7 @@ class Square:
                     print("#", end='')
                 print()
         else:
-            for line in range(self.__position[1]):
+            if (self.__position[1] > 0):
                 print()
             for row in range(self.__size):
                 for line in range(self.__position[0]):

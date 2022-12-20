@@ -6,12 +6,7 @@
 
     The getter and setter are set appropriately.
 
-    Attributes:
-        size (int): dafault value of size if None in object
-        position (tuple: int): default tuple values if None
 """
-size = 0
-position = (0, 0)
 
 
 class Square:

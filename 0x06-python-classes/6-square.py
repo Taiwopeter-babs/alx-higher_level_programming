@@ -25,8 +25,8 @@ class Square:
             position (tuple: int): The elements at different
                 indexes must be integers
         """
-        self.__position = position
-        self.__size = size
+        self.position = position
+        self.size = size
 
     @property
     def size(self):
@@ -48,13 +48,10 @@ class Square:
 
     @size.setter
     def size(self, size):
-        try:
-            if (not isinstance(size, int)):
-                raise TypeError("size must be an integer")
-            if (size < 0):
-                raise ValueError("size must be >= 0")
-        except (TypeError, ValueError):
-            raise
+        if (not isinstance(size, int)):
+            raise TypeError("size must be an integer")
+        if (size < 0):
+            raise ValueError("size must be >= 0")
 
         else:
             self.__size = size
@@ -77,15 +74,17 @@ class Square:
 
     @position.setter
     def position(self, value):
+        message = "position must be a tuple of 2 positive integers"
+
         try:
-            for idx, item in enumerate(value):
-                if (value[idx] < 0 or not isinstance(value[idx], int) or
-                        len(value) != 2):
-                    raise TypeError("position must be a tuple"
-                                    "of 2 positive integers")
-            if (type(value) != tuple):
-                raise TypeError("position must be a tuple"
-                                "of 2 positive integers")
+            if (len(value) != 2 or type(value[0]) != int or
+                    type(value[1]) != int):
+                raise TypeError(message)
+
+            elif (value[0] < 0 or value[1] < 0):
+                raise TypeError(message)
+            elif (not isinstance(value, tuple)):
+                raise TypeError(message)
         except TypeError:
             raise
         else:
@@ -103,16 +102,19 @@ class Square:
         """Prints a square shape with '#' characters.
             Its size depends on value entered in object.
         """
-        if (self.__size == 0):
+        size = self.__size
+        position = self.__position
+
+        if (size == 0):
             print()
             return
 
         else:
-            for line in range(self.__position[1]):
+            for line in range(position[1]):
                 print()
-            for row in range(self.__size):
-                for line in range(self.__position[0]):
+            for row in range(size):
+                for line in range(position[0]):
                     print(" ", end='')
-                for col in range(self.__size):
+                for col in range(size):
                     print("#", end='')
                 print()

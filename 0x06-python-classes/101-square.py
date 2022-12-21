@@ -116,6 +116,5 @@ class Square:
 
     def __str__(self):
         """Returns a string representation of object"""
-        pos = self.__position
 
         return ("{}".format(self.my_print()))

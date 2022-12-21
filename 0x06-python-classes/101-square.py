@@ -76,15 +76,18 @@ class Square:
 
     @position.setter
     def position(self, value):
+        message = "position must be a tuple of 2 positive integers"
         try:
-            for idx, item in enumerate(value):
-                if (value[idx] < 0 or not isinstance(value[idx], int) or
-                        len(value) != 2):
-                    raise TypeError("position must be a tuple"
-                                    "of 2 positive integers")
-            if (not isinstance(value, tuple)):
-                raise TypeError("position must be a tuple"
-                                "of 2 positive integers")
+            if (len(value) != 2 or type(value[0]) != int or
+                    type(value[1]) != int):
+                raise TypeError(message)
+
+            elif (value[0] < 0 or value[1] < 0):
+                raise TypeError(message)
+
+            elif (not isinstance(value, tuple)):
+                raise TypeError(message)
+
         except TypeError:
             raise
         else:
@@ -108,9 +111,11 @@ class Square:
         if (self.__size == 0):
             return ('\n')
 
-        return '\n'.join(' ' * pos[0] + '#' * size for row in range(size))
+        return ("\n" * pos[1] +
+                '\n'.join(" " * pos[0] + '#' * size for row in range(size)))
 
     def __str__(self):
         """Returns a string representation of object"""
+        pos = self.__position
 
         return ("{}".format(self.my_print()))

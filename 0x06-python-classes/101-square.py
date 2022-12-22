@@ -109,7 +109,7 @@ class Square:
         pos = self.__position
 
         if (self.__size == 0):
-            return ('\n')
+            return ('')
 
         return ("\n" * pos[1] +
                 '\n'.join(" " * pos[0] + '#' * size for row in range(size)))

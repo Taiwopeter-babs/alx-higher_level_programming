@@ -1,0 +1,83 @@
+=================================
+Test for module 0-add_integer.py
+=================================
+
+This tests only one function: ``add_integer(a, b=98)``.
+
+Numbers
+=========
+	integers
+	--------
+::
+	>>> add_integer = __import__('0-add_integer').add_integer
+	>>> add_integer(2, 4)
+	6
+	>>> add_integer(-100, 34)
+	-66
+	>>> add_integer(-10)
+	88
+
+
+::
+	Floating point numbers are converted to integers
+	
+	floats
+	-------
+	>>> add_integer(5.6, 2.7)
+	7
+	>>> add_integer(-2.3, 1.9)
+	-1
+
+
+Strings
+=======
+Strings must return TypeError
+::
+	argument 'a' as string
+	----------------------
+	>>> add_integer("2", 3)
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
+
+
+	>>> add_integer('tee')
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
+
+
+	argument 'b' as string
+	----------------------
+	>>> add_integer(3, "-6")
+	Traceback (most recent call last):
+	    ...
+	TypeError: b must be an integer
+
+
+
+None values and complex numbers
+===============================
+::
+	>>> add_integer(None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
+
+
+	>>> add_integer(-15, None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: b must be an integer
+
+
+	>>> add_integer(2+3j, 4)
+	Traceback (most recent call last):
+	    ...
+	TypeError: a must be an integer
+
+
+	>>> add_integer(-8.5, -5+4j)
+	Traceback (most recent call last):
+	    ...
+	TypeError: b must be an integer

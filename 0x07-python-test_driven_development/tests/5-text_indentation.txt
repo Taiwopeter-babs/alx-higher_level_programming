@@ -1,0 +1,117 @@
+=====================================
+Test for module 5-text_indentation.py
+=====================================
+
+This tests only one function: ``text_indentation(text)``.
+
+Not strings
+=================
+	None value
+	------------
+::
+	>>> text_indentation = __import__('5-text_indentation').text_indentation
+	>>> text_indentation(None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: text must be a string
+
+
+::
+	Numbers
+	--------
+	>>> text_indentation(-2.5)
+	Traceback (most recent call last):
+	    ...
+	TypeError: text must be a string
+	>>> text_indentation(100)
+	Traceback (most recent call last):
+	    ...
+	TypeError: text must be a string
+	
+	
+	list
+	----
+	>>> my_list = ["This is a string?", "Yes it is."]
+	>>> text_indentation(my_list)
+	Traceback (most recent call last):
+	    ...
+	TypeError: text must be a string
+
+	
+Ideal cases
+===========
+
+Test with delimiters 
+---------------------
+>>> text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. \
+... Quonam modo? Utrum igitur tibi litteram videor an totas paginas commovere? \
+... Non autem hoc: igitur ne illud quidem. Fortasse id optimum, sed ubi illud: \
+... Plus semper voluptatis? Teneo, inquit, finem illi videri nihil dolere. \
+... Transfer idem ad modestiam vel temperantiam, quae est moderatio cupiditatum \
+... rationi oboediens. Si id dicis, vicimus. Inde sermone vario sex illa a Dipylo \
+... stadia confecimus. Sin aliud quid voles, postea. Quae animi affectio suum \
+... cuique tribuens atque hanc, quam dico. Utinam quidem dicerent alium alio \
+... beatiorem! Iam ruinas videres"""
+>>> text_indentation(text) #doctest: +REPORT_NDIFF
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+<BLANKLINE>
+Quonam modo?
+<BLANKLINE>
+Utrum igitur tibi litteram videor an totas paginas commovere?
+<BLANKLINE>
+Non autem hoc:
+<BLANKLINE>
+igitur ne illud quidem.
+<BLANKLINE>
+Fortasse id optimum, sed ubi illud:
+<BLANKLINE>
+Plus semper voluptatis?
+<BLANKLINE>
+Teneo, inquit, finem illi videri nihil dolere.
+<BLANKLINE>
+Transfer idem ad modestiam vel temperantiam, quae est moderatio cupiditatum rationi oboediens.
+<BLANKLINE>
+Si id dicis, vicimus.
+<BLANKLINE>
+Inde sermone vario sex illa a Dipylo stadia confecimus.
+<BLANKLINE>
+Sin aliud quid voles, postea.
+<BLANKLINE>
+Quae animi affectio suum cuique tribuens atque hanc, quam dico.
+<BLANKLINE>
+Utinam quidem dicerent alium alio beatiorem! Iam ruinas videres
+
+
+
+>>> my_text = "\t\t\tHi, Taiwo. \nDo you mind? \t\t\tif not please see this: okay\t\t\t\n"
+>>> text_indentation(my_text)
+Hi, Taiwo.
+<BLANKLINE>
+Do you mind?
+<BLANKLINE>
+if not please see this:
+<BLANKLINE>
+okay
+
+
+>>> text = "And New York is the most beautiful city in the world? \
+... It is not far from it. No urban night is like the night there. \
+... .. Squares after squares of flame, set up and cut into the aether. Here is our poetry: \
+... For we have pulled down the stars to our will."
+>>> text_indentation(text) #doctest: +REPORT_NDIFF, +NORMALIZE_WHITESPACE
+And New York is the most beautiful city in the world?
+<BLANKLINE>
+It is not far from it.
+<BLANKLINE>
+No urban night is like the night there.
+<BLANKLINE>
+.
+<BLANKLINE>
+.
+<BLANKLINE>
+Squares after squares of flame, set up and cut into the aether.
+<BLANKLINE>
+Here is our poetry:
+<BLANKLINE>
+For we have pulled down the stars to our will.
+<BLANKLINE>

@@ -1,0 +1,63 @@
+=================================
+Test for module 4-print_square.py
+=================================
+
+This tests only one function: ``print_square(size)``.
+
+size with values
+=================
+	None value
+	------------
+::
+	>>> print_square = __import__('4-print_square').print_square
+	>>> print_square(None)
+	Traceback (most recent call last):
+	    ...
+	TypeError: size must be an integer
+
+
+::
+	floating point value
+	--------------------
+	>>> print_square(2.5)
+	Traceback (most recent call last):
+	    ...
+	TypeError: size must be an integer
+	>>> print_square(-0.6)
+	Traceback (most recent call last):
+	    ...
+	TypeError: size must be an integer
+	
+	
+	integer values
+	--------------
+	>>> print_square(6)
+	######
+	######
+	######
+	######
+	######
+	######
+	>>> print_square(3)
+	###
+	###
+	###
+	>>> print_square(-3)
+	Traceback (most recent call last):
+	    ...
+	ValueError: size must be >= 0
+
+	
+
+
+	Strings, complex numbers, and zero values
+	-------------------------------------------
+	>>> print_square("4")
+	Traceback (most recent call last):
+    	    ...
+	TypeError: size must be an integer
+	>>> print_square(3+2j)
+	Traceback (most recent call last):
+    	    ...
+	TypeError: size must be an integer
+	>>> print_square(0)

@@ -15,6 +15,9 @@
 
 
 def matrix_mul(m_a, m_b):
+    """
+        Returns the product of two matrices in a new matrix
+    """
     err_msg_types_arg_0 = "m_a should contain only integers or floats"
     err_msg_types_arg_1 = "m_b should contain only integers or floats"
 

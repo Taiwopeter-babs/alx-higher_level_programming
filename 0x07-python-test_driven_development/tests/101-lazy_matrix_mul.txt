@@ -1,0 +1,128 @@
+======================================
+Test for module 101-lazy_matrix_mul.py
+======================================
+
+This tests only one function: ``lazy_matrix_mul(matrix_a, matrix_b)``.
+
+Matrix
+=========
+
+empty matrix
+------------
+
+>>> lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
+>>> m_a = [[1, 2, 3], []]
+>>> m_b = [[3, 4], [5, 6], [7, 8]]
+>>> lazy_matrix_mul(m_a, m_b)
+Traceback (most recent call last):
+    ...
+ValueError: empty list not allowed in argument m_a
+
+
+>>> m_a = [[1, 2, 3], [1, 2, 3]]
+>>> m_b = []
+>>> lazy_matrix_mul(m_a, m_b) # doctest: +REPORT_NDIFF
+Traceback (most recent call last):
+    ...
+ValueError: empty matrix not allowed in argument m_b
+
+
+
+List or matrix type
+===================
+>>> m_a = [[1, 2, 3], (1, 2, 3)]
+>>> m_b = [[3, 4], [5, 6], [7, 8]]
+>>> lazy_matrix_mul(m_a, m_b)           
+Traceback (most recent call last):
+    ...
+TypeError: m_a can only be a list of lists
+
+
+>>> m_a = [[1, 2, 3], [1, 2, 3]]
+>>> m_b = ([3, 4], [5, 6], [7, 8])
+>>> lazy_matrix_mul(m_a, m_b) # doctest: +REPORT_NDIFF
+Traceback (most recent call last):
+    ...
+TypeError: only list instance allowed in matrix_b
+
+
+
+Element type in list
+====================
+>>> m_a = [[1, 2, 3], ["2", 3, 6]]
+>>> m_b = [[3, 4], [5, 6], [7, 8]]
+>>> lazy_matrix_mul(m_a, m_b)           
+Traceback (most recent call last):
+    ...
+TypeError: only int/float types allowed in m_a
+
+
+>>> m_a = [[1, 2, 3], [1, 2, 2]]
+>>> m_b = [[3, 4], [5, 6], [[2, 3], 8]]
+>>> lazy_matrix_mul(m_a, m_b)           
+Traceback (most recent call last):
+    ...
+TypeError: only int/float types allowed in m_b
+
+
+
+>>> m_a = [[1, 2, 3], [1, 2, 3, 4]]
+>>> m_b = [[3, 4], [5, 6], [7, 8]]
+>>> lazy_matrix_mul(m_a, m_b)           
+Traceback (most recent call last):
+    ...
+TypeError: rows in m_a matrix cannot have varying lengths
+
+
+>>> m_a = [[1, 2, 3], [1, 2, 3]]
+>>> m_b = [[3], [5, 6], [7, 8]]
+>>> lazy_matrix_mul(m_a, m_b)           
+Traceback (most recent call last):
+    ...
+TypeError: rows in m_b matrix cannot have varying lengths
+
+
+
+>>> m_a = [[1, 2, 3, 7], [1, 3, 5, 6]]
+>>> m_b = [[3, 4], [5, 6], [7, 8]]
+>>> lazy_matrix_mul(m_a, m_b)           
+Traceback (most recent call last):
+    ...
+ValueError: multiplication is not possible check the sizes of rows and columns of respective matrices
+
+
+
+>>> m_a = [[1, 2, 3], [1, 2.5, 5]]
+>>> m_b = [[3, 4], [5, 6], [7, 8], [6.8, 5.5]]
+>>> lazy_matrix_mul(m_a, m_b)           
+Traceback (most recent call last):
+    ...
+ValueError: multiplication is not possible check the sizes of rows and columns of respective matrices
+
+
+
+
+Ideal cases
+===========
+
+>>> m_a = [[1, 2, 3, 4], [4, 5, 6, 7]]
+>>> m_b = [[3, 4], [5, 6], [7, 8], [1, 2]]
+>>> lazy_matrix_mul(m_a, m_b) # doctest: +NORMALIZE_WHITESPACE, +REPORT_NDIFF, +ELLIPSIS
+array([[ 38,  48]...
+ [ 86, 108]])
+
+
+>>> m_a = [[1.3, 2.7, 3.2, 4.5], [4, 5, 6, 7]]
+>>> m_b = [[3, 4], [5, 6.675], [7, 8.76], [1.0, 2.8]]
+>>> lazy_matrix_mul(m_a, m_b) # doctest: +NORMALIZE_WHITESPACE, +REPORT_NDIFF, +ELLIPSIS
+array([[ 44.3 ,   63.8545]...
+ [ 86.  ,  121.535 ]])
+
+
+
+>>> m_a = [[13, 27, 33, 40], [49, 53, 67, 71], [10, 20, 54, 78]]
+>>> m_b = [[33, 44], [23, 54], [77, 86], [10, 28]]
+>>> lazy_matrix_mul(m_a, m_b) # doctest: +NORMALIZE_WHITESPACE, +REPORT_NDIFF, +ELLIPSIS
+array([[ 3991,  5988]...
+[ 8705, 12768]...
+[ 5728,  8348]])

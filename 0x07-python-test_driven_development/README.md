@@ -1,5 +1,5 @@
 #	Test Driven Development (doctest and unittests)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 Test driven development is an important aspect of software engineering. I think of it as _virtual user use cases_. Now, we test softwares or code written to acertain that under realistic circumstances, the software will hold or still run. It means that as a software is written, the user is brought into perspective. You are writing the code as if the user is right in front of you using the software.
 
 Imagine that you built an application to add only integers and floating-point numbers. I, as a user decide to input my name as a value. This isn't supposed to be a problem if there is a kind of error message displayed to me ```ONLY NUMBERS ALLOWED```. Now, that is an edge case, and you, who wrote the software have probably saved your company a lot of money; given that your application did not crash. The above is an example of the importance of  tests.

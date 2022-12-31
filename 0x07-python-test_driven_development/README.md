@@ -10,6 +10,7 @@ This repository covers only unittests and doctests (interactive tests).
 # Requirements
 - ```#!/usr/bin/python3``` at the top of scripts to run them as executable files
 - doctest  and unittest modules
+- [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
 ## Example:

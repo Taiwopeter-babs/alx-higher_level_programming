@@ -4,6 +4,7 @@
     the dynamic creation of attributes at runtime
 """
 
+
 class LockedClass:
     """
         Empty class that limits the dynamic creation of

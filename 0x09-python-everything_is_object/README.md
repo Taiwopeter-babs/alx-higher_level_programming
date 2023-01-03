@@ -3,7 +3,7 @@
 
 Imagine buying a house on Peter street, and you decide to change the interior (painting, artworks e.t.c...). Would that change the address of the house? The owner of the house may have changed, but the address of the house definitely hasn't changed. Did the identity change?
 
-What about drawing a house in the center on a piece of paper? Few moments later, you decide to redraw the same house in the top left corner of the paper. What has changed?
+What about drawing a house in the center of a piece of paper? Few moments later, you decide to redraw the same house in the top left corner of the paper. What has changed?
 
 These are metaphorical questions I asked myself before the commencement of the project. They helped me grasp the concept of identity and object-oriented programming.
 

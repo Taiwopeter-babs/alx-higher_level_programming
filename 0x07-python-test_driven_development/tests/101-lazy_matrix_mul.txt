@@ -35,7 +35,7 @@ List or matrix type
 >>> lazy_matrix_mul(m_a, m_b)           
 Traceback (most recent call last):
     ...
-TypeError: m_a can only be a list of lists
+TypeError: Scalar operands are not allowed, use '*' instead
 
 
 >>> m_a = [[1, 2, 3], [1, 2, 3]]
@@ -43,7 +43,7 @@ TypeError: m_a can only be a list of lists
 >>> lazy_matrix_mul(m_a, m_b) # doctest: +REPORT_NDIFF
 Traceback (most recent call last):
     ...
-TypeError: only list instance allowed in matrix_b
+TypeError: Scalar operands are not allowed, use '*' instead
 
 
 
@@ -54,7 +54,7 @@ Element type in list
 >>> lazy_matrix_mul(m_a, m_b)           
 Traceback (most recent call last):
     ...
-TypeError: only int/float types allowed in m_a
+TypeError: invalid data type for einsum
 
 
 >>> m_a = [[1, 2, 3], [1, 2, 2]]
@@ -62,7 +62,7 @@ TypeError: only int/float types allowed in m_a
 >>> lazy_matrix_mul(m_a, m_b)           
 Traceback (most recent call last):
     ...
-TypeError: only int/float types allowed in m_b
+TypeError: invalid data type for einsum
 
 
 
@@ -71,15 +71,15 @@ TypeError: only int/float types allowed in m_b
 >>> lazy_matrix_mul(m_a, m_b)           
 Traceback (most recent call last):
     ...
-TypeError: rows in m_a matrix cannot have varying lengths
+TypeError: setting an array element with a sequence.
 
 
 >>> m_a = [[1, 2, 3], [1, 2, 3]]
 >>> m_b = [[3], [5, 6], [7, 8]]
->>> lazy_matrix_mul(m_a, m_b)           
+>>> lazy_matrix_mul(m_a, m_b) # doctest: +REPORT_NDIFF
 Traceback (most recent call last):
     ...
-TypeError: rows in m_b matrix cannot have varying lengths
+TypeError: setting an array element with a sequence.
 
 
 

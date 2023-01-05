@@ -21,26 +21,26 @@ def lazy_matrix_mul(m_a, m_b):
     """
     Returns the product of two matrices in a new matrix
     """
-    err_msg_types_arg_0 = "only int/float types allowed in m_a"
-    err_msg_types_arg_1 = "only int/float types allowed in m_b"
+    err_msg_types_arg = "invalid data type for einsum"
 
-    err_row_size_a = "rows in m_a matrix cannot have varying lengths"
-    err_row_size_b = "rows in m_b matrix cannot have varying lengths"
+    err_row_size = "setting an array element with a sequence."
+
+    list_type_err_msg = "Scalar operands are not allowed, use '*' instead"
 
     # check for instance of arguments
     if not isinstance(m_a, list):
-        raise TypeError("only list instance allowed in matrix_a")
+        raise TypeError(list_type_err_msg)
     if not isinstance(m_b, list):
-        raise TypeError("only list instance allowed in matrix_b")
+        raise TypeError(list_type_err_msg)
 
     # validate that elements in arguments are lists
     for mat_a in m_a:
         if not isinstance(mat_a, list):
-            raise TypeError("m_a can only be a list of lists")
+            raise TypeError(list_type_err_msg)
 
     for mat_b in m_b:
         if not isinstance(mat_b, list):
-            raise TypeError("m_b can only be a list of lists")
+            raise TypeError("Scalar operands are not allowed, use '*' instead")
 
     # validate that each list is not empty
     if len(m_a) != 0:
@@ -61,12 +61,12 @@ def lazy_matrix_mul(m_a, m_b):
     for mat_a in m_a:
         for ele in mat_a:
             if type(ele) not in [int, float]:
-                raise TypeError(err_msg_types_arg_0)
+                raise TypeError(err_msg_types_arg)
 
     for mat_b in m_b:
         for ele in mat_b:
             if type(ele) not in [int, float]:
-                raise TypeError(err_msg_types_arg_1)
+                raise TypeError(err_msg_types_arg)
 
     """
         check the lengths of lists in a matrix are equal
@@ -76,13 +76,13 @@ def lazy_matrix_mul(m_a, m_b):
         for idx, mat in enumerate(m_a):
             if idx < len(m_a) - 1:
                 if len(m_a[idx]) != len(m_a[idx + 1]):
-                    raise TypeError(err_row_size_a)
+                    raise TypeError(err_row_size)
 
     if len(m_b) > 1:
         for idx, mat in enumerate(m_b):
             if idx < len(m_b) - 1:
                 if len(m_b[idx]) != len(m_b[idx + 1]):
-                    raise TypeError(err_row_size_b)
+                    raise TypeError(err_row_size)
 
     """
         length of column of first matrix must be equal to size of

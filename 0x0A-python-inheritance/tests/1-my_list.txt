@@ -31,3 +31,37 @@ This tests only one function in class MyList: ``print_sorted(self)``.
 [67, 4, 2, 3, 5]
 >>> my_list1.print_sorted()
 [2, 3, 4, 5, 67]
+
+>>> my_list = MyList()
+>>> print(my_list)
+[]
+
+>>> my_list.print_sorted()
+[]
+>>> my_list.append(1)
+>>> my_list.append(1)
+>>> my_list.append(1)
+>>> my_list.append(1)
+>>> my_list.append(1)
+>>> my_list.append(1)
+>>> print(my_list)
+[1, 1, 1, 1, 1, 1]
+>>> my_list.print_sorted()
+[1, 1, 1, 1, 1, 1]
+
+>>> my = MyList()
+>>> my.append(56)
+>>> print (my)
+[56]
+>>> my.print_sorted()
+[56]
+
+>>> myl = MyList()
+>>> myl.append(56)
+>>> myl.append(-34)
+>>> print(myl)
+[56, -34]
+>>> myl.print_sorted()
+[-34, 56]
+>>> print(myl)
+[56, -34]

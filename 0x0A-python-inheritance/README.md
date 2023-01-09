@@ -15,7 +15,8 @@ class User():
 		return "My name is {} {}".format(self.first_name, self.last_name)
 
 class Person(User):
-		super.__init__(self, first_name=None, last_name=None)
+	def __init__(self):
+		super().__init__(self, first_name=None, last_name=None)
 
 person1 = Person("Taiwo", "Peter")
 ```

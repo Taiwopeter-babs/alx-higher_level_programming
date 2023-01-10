@@ -3,7 +3,6 @@
     This module contains a function that returns
     a default dictionary object
 """
-import json
 
 
 def class_to_json(obj):

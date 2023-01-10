@@ -10,10 +10,7 @@ def class_to_json(obj):
     """
         Return a dictionary
     """
-    with open("./dump.json", "w+", encoding="utf-8") as my_file:
-        json.dump(obj.__dict__, my_file)
+    encoded_json_data = json.dumps(obj.__dict__, sort_keys=True)
+    decoded_json = json.loads(encoded_json_data)
 
-    with open("./dump.json", "r+", encoding="utf-8") as my_file:
-        ret = json.load(my_file)
-
-    return (ret)
+    return (decoded_json)

@@ -8,13 +8,22 @@ class Student:
     """class contains instantiation method and to_json method"""
 
     def __init__(self, first_name, last_name, age):
+        """
+            Initialization of attributes
+
+            Args:
+                first_name(str): first attribute
+                last_name(str): second attribute
+                age(int): third attribute
+        """
+
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
 
     def to_json(self, attrs=None):
         """
-        Returns a dictionary
+            Returns a dictionary
         """
 
         # check if attrs is a list and not empty

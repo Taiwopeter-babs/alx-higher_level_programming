@@ -18,6 +18,17 @@ class TestMaxInteger(unittest.TestCase):
         self.empty_list = []
         self.single_element = [2]
         self.string_arg = "1234566"
+    
+    def tearDown(self):
+        del self.int_list
+        del self.float_in_list
+        del self.negative_int
+        del self.string_in_list
+        del self.tuple_arg
+        del self.empty_list
+        del self.single_element
+        del self.string_arg
+
 
     def test_ideal_case(self):
         """Test for list that contains integers"""
@@ -44,5 +55,5 @@ class TestMaxInteger(unittest.TestCase):
 
     def test_for_empty_and_single(self):
         """test for empty list and list with one element"""
-        self.assertEqual(max_integer(self.empty_list), None)
+        self.assertIsNone(max_integer(self.empty_list))
         self.assertEqual(max_integer(self.single_element), 2)

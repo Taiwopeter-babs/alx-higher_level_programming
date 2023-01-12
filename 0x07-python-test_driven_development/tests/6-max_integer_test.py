@@ -11,24 +11,15 @@ class TestMaxInteger(unittest.TestCase):
     def setUp(self):
         """setup the variables for tests"""
         self.int_list = [2, 5, 8, 1, 15, 9]
-        self.float_in_list = [-1, 6, 3.6, 7, 31]
         self.negative_int = [-2, -8, -15, -4, -35]
-        self.string_in_list = [4, 8, -2, '2', 6]
-        self.tuple_arg = (1, 2, 4, 6, 9)
         self.empty_list = []
         self.single_element = [2]
-        self.string_arg = "1234566"
-    
+
     def tearDown(self):
         del self.int_list
-        del self.float_in_list
         del self.negative_int
-        del self.string_in_list
-        del self.tuple_arg
         del self.empty_list
         del self.single_element
-        del self.string_arg
-
 
     def test_ideal_case(self):
         """Test for list that contains integers"""
@@ -38,20 +29,20 @@ class TestMaxInteger(unittest.TestCase):
     def test_for_string(self):
         """Test for string type in list and string argument"""
         with self.assertRaises(TypeError):
-            max_integer(self.string_in_list)
+            max_integer([4, 8, -2, '2', 6])
 
         with self.assertRaises(TypeError):
-            max_integer(self.string_arg)
+            max_integer("1234566")
 
     def test_for_float(self):
         """Test for float type in list"""
         with self.assertRaises(TypeError):
-            max_integer(self.float_in_list)
+            max_integer([-1, 6, 3.6, 7, 31])
 
     def test_for_argument_type(self):
         """Test for argument type in function"""
         with self.assertRaises(TypeError):
-            max_integer(self.tuple_arg)
+            max_integer((1, 2, 4, 6, 9))
 
     def test_for_empty_and_single(self):
         """test for empty list and list with one element"""

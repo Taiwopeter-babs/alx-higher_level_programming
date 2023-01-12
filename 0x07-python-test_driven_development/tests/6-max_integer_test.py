@@ -14,12 +14,14 @@ class TestMaxInteger(unittest.TestCase):
         self.negative_int = [-2, -8, -15, -4, -35]
         self.empty_list = []
         self.single_element = [2]
+        self.max_end = [24, 21, 34, 45, 76]
 
     def tearDown(self):
         del self.int_list
         del self.negative_int
         del self.empty_list
         del self.single_element
+        del self.max_end
 
     def test_ideal_case(self):
         """Test for list that contains integers"""
@@ -31,3 +33,4 @@ class TestMaxInteger(unittest.TestCase):
         """test for empty list and list with one element"""
         self.assertIsNone(max_integer(self.empty_list))
         self.assertEqual(max_integer(self.single_element), 2)
+        self.assertEqual(max_integer(self.max_end), 76)

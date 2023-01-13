@@ -46,6 +46,7 @@ class Rectangle(Base):
             raise TypeError("height must be an integer")
         if height <= 0:
             raise ValueError("height must be > 0")
+        self.__height = height
 
     @property
     def x(self):
@@ -58,6 +59,7 @@ class Rectangle(Base):
             raise TypeError("x must be an integer")
         if x < 0:
             raise ValueError("x must be >= 0")
+        self.__x = x
 
     @property
     def y(self):
@@ -107,28 +109,26 @@ class Rectangle(Base):
 
     def update(self, *args, **kwargs):
         """Update attributes with variable orderly arguments"""
-        
+
         if (args is not None and len(args) > 0):
-            args_value = [arg for arg in args]
 
             try:
-                self.id = args_value[0]
-                self.__width = args_value[1]
-                self.__height = args_value[2]
-                self.__x = args_value[3]
-                self.__width = args_value[4]
-            except:
+                self.id = args[0]
+                self.__width = args[1]
+                self.__height = args[2]
+                self.__x = args[3]
+                self.__y = args[4]
+            except IndexError:
                 pass
-        else:
-            if kwargs is not None:
-                for key, val in kwargs.items():
-                    if key == 'width':
-                        self.__width = kwargs[key]
-                    elif key == 'height':
-                        self.__height = kwargs[key]
-                    elif key == 'x':
-                        self.__x = kwargs[key]
-                    elif key == 'y':
-                        self.__y = kwargs[key]
-                    elif key == 'id':
-                        self.id = kwargs[key]
+            return
+        if kwargs is not None:
+            for key, val in kwargs.items():
+                self.__setattr__(key, val)
+
+    def to_dictionary(self):
+        """Returns a dictionary representation of class"""
+        return {"id": getattr(self, "id"),
+                "width": getattr(self, "width"),
+                "height": getattr(self, "height"),
+                "x": getattr(self, "x"),
+                "y": getattr(self, "y")}

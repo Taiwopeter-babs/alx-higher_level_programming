@@ -3,7 +3,7 @@
     This module contains a class: Base
 """
 import json
-
+import os
 
 class Base:
     """
@@ -67,7 +67,7 @@ class Base:
 
     @classmethod
     def create(cls, **dictionary):
-        """creates a new instance of class"""
+        """creates a new instance of class cls"""
         class_name = cls.__name__
 
         if class_name == "Rectangle":
@@ -78,6 +78,35 @@ class Base:
 
         if class_name == "Square":
             from models.square import Square
-            dummy = Square(class_name)(5, 3, 7, 200)
-            dummy.update(dictionary)
+            dummy = Square(5, 3, 7, 200)
+            dummy.update(**dictionary)
             return (dummy)
+
+    @classmethod
+    def load_from_file(cls):
+        """Return a list of cls class instances"""
+        # Get class name
+        class_name = cls.__name__
+
+        # Rectangle instances
+        if class_name == "Rectangle":
+            filename = "./Rectangle.json"
+            if os.path.exists(filename):
+                from models.rectangle import Rectangle
+                with open(filename, "r+", encoding="utf-8") as json_file:
+                    json_string = json_file.read()  # read file
+                list_of_dict = Base.from_json_string(json_string)
+                list_of_instances = [Rectangle.create(**dic) for dic in list_of_dict]
+                return (list_of_instances)
+        
+        elif class_name == "Square":
+            from models.square import Square
+            filename = "./Square.json"
+            if os.path.exists(filename):
+                with open(filename, "r+", encoding="utf-8") as json_file:
+                    json_string = json_file.read()  # read file
+                list_of_dict = Base.from_json_string(json_string)
+                list_of_instances = [Square.create(**dic) for dic in list_of_dict]
+                return (list_of_instances)
+
+        return ([])

@@ -2,9 +2,14 @@
 """
     Test module for class Base and methods in it
 """
+
+"""builtin modules"""
+from io import StringIO
+import sys
 import os
 import unittest
 
+"""local modules"""
 from models.base import Base
 from models.rectangle import Rectangle
 
@@ -93,6 +98,18 @@ class TestRectangle(unittest.TestCase):
             Rectangle(3, 0, 5, 6)
         self.assertEqual("height must be > 0", str(err_3.exception))
 
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(2, (4, 7), 5, 6)
+        self.assertEqual("height must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(2, [4, 6], 5, 6)
+        self.assertEqual("height must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(2, range(4), 5, 6)
+        self.assertEqual("height must be an integer", str(err_0.exception))
+
         self.assertEqual(r1.height, 5)
         self.assertIsInstance(r1.height, int)
 
@@ -112,6 +129,19 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(ValueError) as err_2:
             Rectangle(3, 4, -5, 6)
         self.assertEqual("x must be >= 0", str(err_2.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(2, 4, (5, 5), 6)
+        self.assertEqual("x must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(2, 4, [5, 5], 6)
+        self.assertEqual("x must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(4, 4, range(5), 6)
+        self.assertEqual("x must be an integer", str(err_0.exception))
+
 
         self.assertEqual(r1.x, 2)
         self.assertEqual(r2.x, 0)
@@ -134,6 +164,18 @@ class TestRectangle(unittest.TestCase):
             Rectangle(3, 4, 5, -6)
         self.assertEqual("y must be >= 0", str(err_2.exception))
 
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(2, 4, 5, (6, 6))
+        self.assertEqual("y must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(2, 4, 5, [6, 6])
+        self.assertEqual("y must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(4, 4, 5, range(6))
+        self.assertEqual("y must be an integer", str(err_0.exception))
+
         self.assertEqual(r1.y, 9)
         self.assertEqual(r2.y, 0)
         self.assertIsInstance(r1.y, int)
@@ -143,7 +185,123 @@ class TestRectangle(unittest.TestCase):
         r1 = Rectangle(3, 5, 2, 9)
         self.assertEqual(15, r1.area())
 
-    def test_rectangle_display(self):
-        """Test for printed rectangle with "#" """
-        r1 = Rectangle(3, 5, 2, 9)
+        """Test large output"""
+        r2 = Rectangle(777777777, 777777777, 3, 5, 2)
+        self.assertEqual(r2.area(), 604938270395061729)
 
+
+class TestDisplay(unittest.TestCase):
+    """class for testing __str__ and display methods in Rectangle class"""
+
+    @classmethod
+    def setUpClass(cls):
+        """set up objects for global tests cases"""
+        cls.without_coordinates = Rectangle(4, 3)
+        cls.with_coordinates = Rectangle(4, 3, 2, 4)
+        cls.rect_update = Rectangle(5, 5, 5, 5)
+
+    @classmethod
+    def tearDownClass(cls):
+        """Tear down instances and objects"""
+        del cls.without_coordinates
+        del cls.with_coordinates
+
+    @staticmethod
+    def show_output(instance_of_class, method):
+        """
+            This returns the captured output from StringIO
+
+            Args:
+                instance_of_class(Rectangle): instance of rectangle class
+                method(str): The instance method to call
+        """
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        
+        if (method == "print"):
+            print(instance_of_class)
+        else:
+            instance_of_class.display()
+
+        sys.stdout = sys.__stdout__
+
+        return (captured_output)
+
+    def test_str_method(self):
+        """Test the __str__ method"""
+        r1 = Rectangle(2, 5, 1, 2, 7)
+        
+        _str_output = "[Rectangle] ({}) 1/2 - 2/5\n".format(r1.id)
+        show_output = TestDisplay.show_output(r1, "print")
+
+        self.assertEqual(show_output.getvalue(), _str_output)
+    
+    def test_str_without_coord_and_id(self):
+        """Test the __str__ without coordinates and id"""
+        r1 = Rectangle(2, 5)
+
+        _str_output = "[Rectangle] ({}) 0/0 - 2/5\n".format(r1.id)
+        show_output = TestDisplay.show_output(r1, "print")
+
+        self.assertEqual(show_output.getvalue(), _str_output)
+
+    def test_str_with_changing_attr(self):
+        """Test string with changing attributes"""
+        r1 = Rectangle(2, 5)
+        r1.width = 4
+        r1.height = 7
+
+        _str_output = "[Rectangle] ({}) 0/0 - 4/7\n".format(r1.id)
+        show_output = TestDisplay.show_output(r1, "print")
+
+        self.assertEqual(show_output.getvalue(), _str_output)
+
+    def test_str_without_attributes(self):
+        """Test __str__ without attributes"""
+        with self.assertRaises(TypeError):
+            r = Rectangle()
+            r.__str__()
+
+    def test_display_shape_1(self):
+        """Test display shape of rectangle with '#' with coordinates"""
+        show_output1 = TestDisplay.show_output(TestDisplay.without_coordinates,
+                                                       "display")
+        display_output1 = "####\n####\n####\n"
+        self.assertEqual(show_output1.getvalue(), display_output1)
+    
+    def test_display_shape_2(self):
+        """Test shape of rectangle with '#' without coordinates"""
+
+        show_output2 = TestDisplay.show_output(TestDisplay.with_coordinates,
+                                                        "display")
+        display_output2 = "\n\n\n\n  ####\n  ####\n  ####\n"
+        self.assertEqual(show_output2.getvalue(), display_output2)
+
+
+    def test_update_args(self):
+        """Tests update method"""
+        TestDisplay.rect_update.update(3)
+        update1 = TestDisplay.show_output(TestDisplay.rect_update, "print")
+        display_update1 = "[Rectangle] (3) 5/5 - 5/5\n"
+
+        TestDisplay.rect_update.update(3, 7)
+        update2 = TestDisplay.show_output(TestDisplay.rect_update, "print")
+        display_update2 = "[Rectangle] (3) 5/5 - 7/5\n"
+
+        TestDisplay.rect_update.update(3, 7, 4)
+        update3 = TestDisplay.show_output(TestDisplay.rect_update, "print")
+        display_update3 = "[Rectangle] (3) 5/5 - 7/4\n"
+
+        TestDisplay.rect_update.update(3, 7, 4, 2)
+        update4 = TestDisplay.show_output(TestDisplay.rect_update, "print")
+        display_update4 = "[Rectangle] (3) 2/5 - 7/4\n"
+
+        TestDisplay.rect_update.update(3, 7, 4, 2, 8)
+        update5 = TestDisplay.show_output(TestDisplay.rect_update, "print")
+        display_update5 = "[Rectangle] (3) 2/8 - 7/4\n"
+
+        self.assertEqual(update1.getvalue(), display_update1)
+        self.assertEqual(update2.getvalue(), display_update2)
+        self.assertEqual(update3.getvalue(), display_update3)
+        self.assertEqual(update4.getvalue(), display_update4)
+        self.assertEqual(update5.getvalue(), display_update5)

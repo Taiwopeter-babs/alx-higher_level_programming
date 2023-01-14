@@ -205,6 +205,7 @@ class TestDisplay(unittest.TestCase):
         """Tear down instances and objects"""
         del cls.without_coordinates
         del cls.with_coordinates
+        del cls.rect_update
 
     @staticmethod
     def show_output(instance_of_class, method):
@@ -305,3 +306,40 @@ class TestDisplay(unittest.TestCase):
         self.assertEqual(update3.getvalue(), display_update3)
         self.assertEqual(update4.getvalue(), display_update4)
         self.assertEqual(update5.getvalue(), display_update5)
+
+    def test_update_kwargs(self):
+        """Test kwargs update"""
+        r2 = Rectangle(10, 10, 10, 10, 1)
+
+        r2.update(y=4)
+        update1 = TestDisplay.show_output(r2, "print")
+        display_update1 = "[Rectangle] (1) 10/4 - 10/10\n"
+
+        r2.update(width=2, x=3)
+        update2 = TestDisplay.show_output(r2, "print")
+        display_update2 = "[Rectangle] (1) 3/4 - 2/10\n"
+
+        r2.update(height=6, y=7)
+        update3 = TestDisplay.show_output(r2, "print")
+        display_update3 = "[Rectangle] (1) 3/7 - 2/6\n"
+
+        r2.update(89)
+        update4 = TestDisplay.show_output(r2, "print")
+        display_update4 = "[Rectangle] (89) 3/7 - 2/6\n"
+
+        r2.update(id=99, x=15, width=7, y=8, height=11)
+        update5 = TestDisplay.show_output(r2, "print")
+        display_update5 = "[Rectangle] (99) 15/8 - 7/11\n"
+
+        r2.update(30, 9, height=9)
+        update6 = TestDisplay.show_output(r2, "print")
+        display_update6 = "[Rectangle] (30) 15/8 - 9/11\n"
+
+
+        self.assertEqual(update1.getvalue(), display_update1)
+        self.assertEqual(update2.getvalue(), display_update2)
+        self.assertEqual(update3.getvalue(), display_update3)
+        self.assertEqual(update4.getvalue(), display_update4)
+        self.assertEqual(update5.getvalue(), display_update5)
+        self.assertEqual(update6.getvalue(), display_update6)
+

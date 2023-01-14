@@ -58,7 +58,20 @@ class TestRectangle(unittest.TestCase):
             Rectangle(0, 4, 5, 6)
         self.assertEqual("width must be > 0", str(err_3.exception))
 
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle((2, 3), 4, 5, 6)
+        self.assertEqual("width must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle([2, 3], 4, 5, 6)
+        self.assertEqual("width must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(range(4), 4, 5, 6)
+        self.assertEqual("width must be an integer", str(err_0.exception))
+
         self.assertEqual(r1.width, 34)
+        self.assertIsInstance(r1.width, int)
 
     def test_for_height_attribute(self):
         """Test for height attribute"""
@@ -81,6 +94,7 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual("height must be > 0", str(err_3.exception))
 
         self.assertEqual(r1.height, 5)
+        self.assertIsInstance(r1.height, int)
 
     def test_for_x_attribute(self):
         """Test for x-coordinate attribute"""
@@ -101,3 +115,35 @@ class TestRectangle(unittest.TestCase):
 
         self.assertEqual(r1.x, 2)
         self.assertEqual(r2.x, 0)
+        self.assertIsInstance(r1.x, int)
+
+    def test_for_y_attribute(self):
+        """Test for y-coordinate attribute"""
+        r1 = Rectangle(3, 5, 2, 9)
+        r2 = Rectangle(3, 5, 2)
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(3, 4, 5, 9.0)
+        self.assertEqual("y must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_1:
+            Rectangle(3, 4, 5, "6")
+        self.assertEqual("y must be an integer", str(err_1.exception))
+
+        with self.assertRaises(ValueError) as err_2:
+            Rectangle(3, 4, 5, -6)
+        self.assertEqual("y must be >= 0", str(err_2.exception))
+
+        self.assertEqual(r1.y, 9)
+        self.assertEqual(r2.y, 0)
+        self.assertIsInstance(r1.y, int)
+
+    def test_rectangle_area(self):
+        """Test rectangle area"""
+        r1 = Rectangle(3, 5, 2, 9)
+        self.assertEqual(15, r1.area())
+
+    def test_rectangle_display(self):
+        """Test for printed rectangle with "#" """
+        r1 = Rectangle(3, 5, 2, 9)
+

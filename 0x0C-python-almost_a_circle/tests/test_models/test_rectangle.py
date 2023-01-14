@@ -54,5 +54,50 @@ class TestRectangle(unittest.TestCase):
             Rectangle(-3, 4, 5, 6)
         self.assertEqual("width must be > 0", str(err_2.exception))
 
+        with self.assertRaises(ValueError) as err_3:
+            Rectangle(0, 4, 5, 6)
+        self.assertEqual("width must be > 0", str(err_3.exception))
+
         self.assertEqual(r1.width, 34)
 
+    def test_for_height_attribute(self):
+        """Test for height attribute"""
+        r1 = Rectangle(3, 5)
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(3, 5.3, 5, 6)
+        self.assertEqual("height must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_1:
+            Rectangle(3, "5", 5, 6)
+        self.assertEqual("height must be an integer", str(err_1.exception))
+
+        with self.assertRaises(ValueError) as err_2:
+            Rectangle(3, -5, 5, 6)
+        self.assertEqual("height must be > 0", str(err_2.exception))
+
+        with self.assertRaises(ValueError) as err_3:
+            Rectangle(3, 0, 5, 6)
+        self.assertEqual("height must be > 0", str(err_3.exception))
+
+        self.assertEqual(r1.height, 5)
+
+    def test_for_x_attribute(self):
+        """Test for x-coordinate attribute"""
+        r1 = Rectangle(3, 5, 2)
+        r2 = Rectangle(3, 5)
+
+        with self.assertRaises(TypeError) as err_0:
+            Rectangle(3, 4, 5.0, 6)
+        self.assertEqual("x must be an integer", str(err_0.exception))
+
+        with self.assertRaises(TypeError) as err_1:
+            Rectangle(3, 4, "5", 6)
+        self.assertEqual("x must be an integer", str(err_1.exception))
+
+        with self.assertRaises(ValueError) as err_2:
+            Rectangle(3, 4, -5, 6)
+        self.assertEqual("x must be >= 0", str(err_2.exception))
+
+        self.assertEqual(r1.x, 2)
+        self.assertEqual(r2.x, 0)

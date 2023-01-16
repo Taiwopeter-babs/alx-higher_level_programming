@@ -8,6 +8,7 @@ from io import StringIO
 import sys
 import os
 import unittest
+import json
 
 """local modules"""
 from models.base import Base
@@ -342,4 +343,18 @@ class TestDisplay(unittest.TestCase):
         self.assertEqual(update4.getvalue(), display_update4)
         self.assertEqual(update5.getvalue(), display_update5)
         self.assertEqual(update6.getvalue(), display_update6)
+    
+    def test_dictionary_representation(self):
+        """Tests dictionary representation of class"""
+        rect = Rectangle(4, 6, 2)
+        rect_dict = rect.to_dictionary()
+        rect_display = "[Rectangle] ({}) 2/0 - 4/6\n".format(rect.id)
 
+        self.assertIsInstance(rect_dict, dict)
+
+        rect2 = Rectangle(2, 2)
+        rect2.update(**rect_dict)
+        rect_update = TestDisplay.show_output(rect2, "print")
+
+        self.assertEqual(rect_update.getvalue(), rect_display)
+        self.assertNotEqual(rect, rect2)

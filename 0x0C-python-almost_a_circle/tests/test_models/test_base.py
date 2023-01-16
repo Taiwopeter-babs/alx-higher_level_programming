@@ -8,6 +8,7 @@ import json
 
 from models.base import Base
 from models.rectangle import Rectangle
+from models.square import Square
 
 
 
@@ -19,7 +20,12 @@ class TestBase(unittest.TestCase):
         self.base1 = Base()
         self.base2 = Base()
         self.base4 = Base()
-
+    
+    def tearDown(self):
+        """Delete created objects for test"""
+        del self.base1
+        del self.base2
+        del self.base4
 
     def test_no_id(self):
         """Test for no args"""
@@ -58,6 +64,18 @@ class TestBase(unittest.TestCase):
 class TestJson(unittest.TestCase):
     """Tests JSON representations"""
 
+    def setUp(self):
+        """sets up objects"""
+        self.rect = Rectangle(23, 44)
+        self.sqr = Square(23, 44)
+        self.tuple_arg = (1, 3)
+
+    def tearDown(self):
+        """Deletes objects created for tests"""
+        del self.rect
+        del self.sqr
+        del self.tuple_arg
+
     def test_to_json_string(self):
         """Tests the to_json_string method"""
         r1 = Rectangle(10, 7, 2, 8)
@@ -91,3 +109,30 @@ class TestJson(unittest.TestCase):
         res = [{"id": 7, "width": 4, "height": 10, "x": 1, "y": 0}]
         self.assertEqual(res, json.loads(content))
         
+    def test_save_to_file_none_list(self):
+        """Tests if argument to method is not list"""
+        with self.assertRaises(TypeError):
+            Rectangle.save_to_file(self.rect)
+
+        with self.assertRaises(TypeError):
+            Rectangle.save_to_file(self.tuple_arg)
+
+    def test_save_to_file_not_subclass(self):
+        """Tests if objects' class are not subclasses of Base"""
+        with self.assertRaises(TypeError):
+            Rectangle.save_to_file([self.rect, self.tuple_arg])
+
+    def test_save_to_file(self):
+        """Test save_to_file for Square class"""
+        try:
+            os.remove("Square.json")
+        except:
+            pass
+        sqr = Square(4, 10, 10, 67)
+        Square.save_to_file([sqr])
+
+        with open("Square.json", "r", encoding='utf-8') as m_file:
+            content = m_file.read()
+
+        res = [{"id": 67, "size": 4, "x": 10, "y": 10}]
+        self.assertEqual(res, json.loads(content))

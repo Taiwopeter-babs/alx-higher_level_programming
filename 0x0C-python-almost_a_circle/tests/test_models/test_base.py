@@ -4,8 +4,10 @@
 """
 import os
 import unittest
+import json
 
 from models.base import Base
+from models.rectangle import Rectangle
 
 
 
@@ -51,3 +53,41 @@ class TestBase(unittest.TestCase):
     def test_float_id(self):
         """Test for float id"""
         self.assertEqual(12.7, Base(12.7).id)
+
+
+class TestJson(unittest.TestCase):
+    """Tests JSON representations"""
+
+    def test_to_json_string(self):
+        """Tests the to_json_string method"""
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(5, 3, 1, 4)
+
+        r1_dict = r1.to_dictionary()
+        r2_dict = r2.to_dictionary()
+
+        list_dict = [r1_dict, r2_dict]
+
+        json_dictionary = Base.to_json_string(list_dict)
+        json_empty_dict = Base.to_json_string([])
+
+        self.assertIsInstance(r1_dict, dict)
+        self.assertIsInstance(json_dictionary, str)
+        self.assertEqual(json_empty_dict, "[]")
+        self.assertIsInstance(json_empty_dict, str)
+
+    def test_save_to_file(self):
+        """Test save_to_file for Rectangle class"""
+        try:
+            os.remove("Rectangle.json")
+        except:
+            pass
+        rect = Rectangle(4, 10, 1, 0, 7)
+        Rectangle.save_to_file([rect])
+
+        with open("Rectangle.json", "r", encoding='utf-8') as m_file:
+            content = m_file.read()
+
+        res = [{"id": 7, "width": 4, "height": 10, "x": 1, "y": 0}]
+        self.assertEqual(res, json.loads(content))
+        

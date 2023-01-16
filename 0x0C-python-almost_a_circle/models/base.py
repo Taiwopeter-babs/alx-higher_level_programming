@@ -46,14 +46,21 @@ class Base:
         """Saves JSON string representation of objects to file"""
         class_name = cls.__name__  # get the class name
         filename = str(class_name) + ".json"
+        
+        if (not isinstance(list_objs, list)):
+            string_to_save = Base.to_json_string([])
 
-        if (list_objs is None):
+        elif (list_objs is None or len(list_objs) == 0):
             string_to_save = Base.to_json_string([])
         else:
             """
                 convert to dictionary representation
                 and perform JSON operation
             """
+            for obj in list_objs:
+                if not issubclass(type(obj), Base):
+                    raise TypeError
+
             string_to_save = Base.to_json_string([obj.to_dictionary()
                                                  for obj in list_objs])
         # save/write to file

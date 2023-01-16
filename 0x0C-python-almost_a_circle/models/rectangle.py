@@ -14,10 +14,10 @@ class Rectangle(Base):
         """
            class constructor
         """
-        self.__width = width
-        self.__height = height
-        self.__x = x
-        self.__y = y
+        self.width = width
+        self.height = height
+        self.x = x
+        self.y = y
 
         super().__init__(id)
 
@@ -84,10 +84,10 @@ class Rectangle(Base):
 
     def display(self):
         """prints the shape of rectangle with "#" """
-        row = self.__height
-        col = self.__width
-        x = self.__x  # x-co-ordinate
-        y = self.__y  # y-co-ordinate
+        row = self.height
+        col = self.width
+        x = self.x  # x-co-ordinate
+        y = self.y  # y-co-ordinate
 
         print("\n" * y, end='')
         for i in range(row):
@@ -98,11 +98,11 @@ class Rectangle(Base):
 
     def __str__(self):
         """Returns a string representation of class"""
-        x = self.__x
-        y = self.__y
+        x = self.x
+        y = self.y
         _id = self.id
-        w = self.__width
-        h = self.__height
+        w = self.width
+        h = self.height
 
         return "[{}] ({}) {}/{} - {}/{}".format(type(self).__name__,
                                                 _id, x, y, w, h)
@@ -114,10 +114,10 @@ class Rectangle(Base):
 
             try:
                 self.id = args[0]
-                self.__width = args[1]
-                self.__height = args[2]
-                self.__x = args[3]
-                self.__y = args[4]
+                self.width = args[1]
+                self.height = args[2]
+                self.x = args[3]
+                self.y = args[4]
             except IndexError:
                 pass
             return

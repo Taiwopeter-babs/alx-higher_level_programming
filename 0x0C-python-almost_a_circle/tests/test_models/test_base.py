@@ -11,7 +11,6 @@ from models.rectangle import Rectangle
 from models.square import Square
 
 
-
 class TestBase(unittest.TestCase):
     """class for instantiation test"""
 
@@ -20,7 +19,7 @@ class TestBase(unittest.TestCase):
         self.base1 = Base()
         self.base2 = Base()
         self.base4 = Base()
-    
+
     def tearDown(self):
         """Delete created objects for test"""
         del self.base1
@@ -48,9 +47,9 @@ class TestBase(unittest.TestCase):
         self.assertEqual(14, base3.id)
 
     def test_access_private_attribute(self):
-       """Test for Error thrown if access to private class instance"""
-       with self.assertRaises(AttributeError):
-           print(Base.__nb_objects)
+        """Test for Error thrown if access to private class instance"""
+        with self.assertRaises(AttributeError):
+            print(Base.__nb_objects)
 
     def test_str_id(self):
         """Test for string id"""
@@ -103,24 +102,36 @@ class TestJson(unittest.TestCase):
         rect = Rectangle(4, 10, 1, 0, 7)
         Rectangle.save_to_file([rect])
 
-        with open("Rectangle.json", "r", encoding='utf-8') as m_file:
+        with open("Rectangle.json", "r", encoding="utf-8") as m_file:
             content = m_file.read()
 
         res = [{"id": 7, "width": 4, "height": 10, "x": 1, "y": 0}]
         self.assertEqual(res, json.loads(content))
-        
-    def test_save_to_file_none_list(self):
-        """Tests if argument to method is not list"""
-        with self.assertRaises(TypeError):
-            Rectangle.save_to_file(self.rect)
 
-        with self.assertRaises(TypeError):
-            Rectangle.save_to_file(self.tuple_arg)
 
     def test_save_to_file_not_subclass(self):
         """Tests if objects' class are not subclasses of Base"""
         with self.assertRaises(TypeError):
             Rectangle.save_to_file([self.rect, self.tuple_arg])
+
+    def test_save_to_file_none(self):
+        """Test for saving empty or None argument"""
+        try:
+            os.remove("Rectangle.json")
+            os.remove("Squaree.json")
+        except:
+            pass
+
+        Rectangle.save_to_file(None)
+        Square.save_to_file(None)
+        
+        with open("Rectangle.json", "r", encoding="utf-8") as r_file:
+            content1 = r_file.read()
+        self.assertEqual("[]", content1)
+
+        with open("Square.json", "r", encoding="utf-8") as s_file:
+            content2 = s_file.read()
+        self.assertEqual("[]", content2)
 
     def test_save_to_file(self):
         """Test save_to_file for Square class"""
@@ -131,8 +142,80 @@ class TestJson(unittest.TestCase):
         sqr = Square(4, 10, 10, 67)
         Square.save_to_file([sqr])
 
-        with open("Square.json", "r", encoding='utf-8') as m_file:
+        with open("Square.json", "r", encoding="utf-8") as m_file:
             content = m_file.read()
 
         res = [{"id": 67, "size": 4, "x": 10, "y": 10}]
         self.assertEqual(res, json.loads(content))
+
+
+    def test_save_to_file_not_subclass(self):
+        """Tests if objects' class are not subclasses of Base"""
+        with self.assertRaises(TypeError):
+            Square.save_to_file([self.sqr, self.tuple_arg])
+
+    def test_from_json_string(self):
+        """Test method from_json_string with Rectangle"""
+        try:
+            os.remove("Rectangle.json")
+        except:
+            pass
+        list_input = [
+                {"id": 1000, "width": 500, "height": 250},
+                {"id": 1001, "width": 700, "height": 350}
+        ]
+
+        json_list_input = Rectangle.to_json_string(list_input)
+        list_output = Rectangle.from_json_string(json_list_input)
+
+        self.assertNotEqual(type(json_list_input), type(list_output))
+        self.assertIsInstance(json_list_input, str)
+        self.assertIsInstance(list_output, list)
+
+        self.assertEqual(list_input[0], list_output[0])
+        self.assertEqual(list_input[1], list_output[1])
+
+    def test_dict_to_instance(self):
+        """Test creating new instance from an existing one"""
+        rect1 = Rectangle(2, 3, 5, 8, 11)
+        r_dict = rect1.to_dictionary()
+        rect2 = Rectangle.create(**r_dict)
+
+        self.assertNotEqual(rect1, rect2)
+        self.assertIsNot(rect1, rect2)
+
+        s1 = Square(2, 3, 5, 80)
+        s_dict = s1.to_dictionary()
+        s2 = Square.create(**s_dict)
+
+        self.assertNotEqual(s1, s2)
+        self.assertIsNot(s1, s2)
+
+    def test_load_from_file_no_file(self):
+        """Test load_from_file method on empty file"""
+        if not os.path.exists("Rectangle.json"):
+            self.assertEqual(Rectangle.load_from_file(), [])
+
+        if not os.path.exists("Square.json"):
+            self.assertEqual(Square.load_from_file(), [])
+
+    def test_load_from_file_exists(self):
+        """Test load_from_file method on existing file"""
+        r1 = Rectangle(10, 7, 2, 8, 789)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+
+        try:
+            os.remove("Rectangle.json")
+        except:
+            pass
+
+        Rectangle.save_to_file(list_rectangles_input)
+        list_rectangles_output = Rectangle.load_from_file()
+
+        self.assertNotEqual(id(r1), id(list_rectangles_output[0]))
+        self.assertEqual(r1.width, list_rectangles_output[0].width)
+        self.assertEqual(r1.height, list_rectangles_output[0].height)
+        self.assertEqual(r1.x, list_rectangles_output[0].x)
+        self.assertEqual(r1.y, list_rectangles_output[0].y)
+        self.assertEqual(r1.id, list_rectangles_output[0].id)

@@ -97,7 +97,7 @@ class TestJson(unittest.TestCase):
         """Test save_to_file for Rectangle class"""
         try:
             os.remove("Rectangle.json")
-        except:
+        except FileNotFoundError:
             pass
         rect = Rectangle(4, 10, 1, 0, 7)
         Rectangle.save_to_file([rect])
@@ -107,7 +107,6 @@ class TestJson(unittest.TestCase):
 
         res = [{"id": 7, "width": 4, "height": 10, "x": 1, "y": 0}]
         self.assertEqual(res, json.loads(content))
-
 
     def test_save_to_file_not_subclass(self):
         """Tests if objects' class are not subclasses of Base"""
@@ -119,12 +118,12 @@ class TestJson(unittest.TestCase):
         try:
             os.remove("Rectangle.json")
             os.remove("Squaree.json")
-        except:
+        except FileNotFoundError:
             pass
 
         Rectangle.save_to_file(None)
         Square.save_to_file(None)
-        
+
         with open("Rectangle.json", "r", encoding="utf-8") as r_file:
             content1 = r_file.read()
         self.assertEqual("[]", content1)
@@ -137,7 +136,7 @@ class TestJson(unittest.TestCase):
         """Test save_to_file for Square class"""
         try:
             os.remove("Square.json")
-        except:
+        except FileNotFoundError:
             pass
         sqr = Square(4, 10, 10, 67)
         Square.save_to_file([sqr])
@@ -148,7 +147,6 @@ class TestJson(unittest.TestCase):
         res = [{"id": 67, "size": 4, "x": 10, "y": 10}]
         self.assertEqual(res, json.loads(content))
 
-
     def test_save_to_file_not_subclass(self):
         """Tests if objects' class are not subclasses of Base"""
         with self.assertRaises(TypeError):
@@ -158,7 +156,7 @@ class TestJson(unittest.TestCase):
         """Test method from_json_string with Rectangle"""
         try:
             os.remove("Rectangle.json")
-        except:
+        except FileNotFoundError:
             pass
         list_input = [
                 {"id": 1000, "width": 500, "height": 250},
@@ -207,7 +205,7 @@ class TestJson(unittest.TestCase):
 
         try:
             os.remove("Rectangle.json")
-        except:
+        except FileNotFoundError:
             pass
 
         Rectangle.save_to_file(list_rectangles_input)
@@ -219,3 +217,23 @@ class TestJson(unittest.TestCase):
         self.assertEqual(r1.x, list_rectangles_output[0].x)
         self.assertEqual(r1.y, list_rectangles_output[0].y)
         self.assertEqual(r1.id, list_rectangles_output[0].id)
+
+    def test_load_from_file_exists(self):
+        """Test load_from_file method on existing file"""
+        s1 = Square(10, 7, 2, 789)
+        s2 = Square(15, 8, 12, 436)
+        list_square_input = [s1, s2]
+
+        try:
+            os.remove("Square.json")
+        except FileNotFoundError:
+            pass
+
+        Square.save_to_file(list_square_input)
+        list_square_output = Square.load_from_file()
+
+        self.assertNotEqual(id(s1), id(list_square_output[0]))
+        self.assertEqual(s1.size, list_square_output[0].size)
+        self.assertEqual(s1.x, list_square_output[0].x)
+        self.assertEqual(s1.y, list_square_output[0].y)
+        self.assertEqual(s1.id, list_square_output[0].id)

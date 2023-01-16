@@ -2,32 +2,16 @@
 """
     Test module for class Base and methods in it
 """
-
-"""builtin modules"""
 from io import StringIO
 import sys
 import os
 import unittest
-
-"""local modules"""
 from models.base import Base
 from models.square import Square
 
 
-
 class TestSquare(unittest.TestCase):
     """class for instantiation test"""
-    
-
-    @classmethod
-    def setUpClass(cls):
-        """set attributes to be used throughout class"""
-        pass
-        
-
-    def setUp(self):
-        """Set up for each test"""
-        pass
 
     def test_for_id(self):
         """Test for id attribute in Square class"""
@@ -42,7 +26,7 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(r1.id, r4.id - 2)
         self.assertEqual(r5.id, 3.2)
         self.assertEqual(r6.id, "Tee")
-    
+
     def test_for_size_attribute(self):
         """Test for width attribute"""
         r1 = Square(4)
@@ -78,7 +62,6 @@ class TestSquare(unittest.TestCase):
         self.assertEqual(r1.size, 4)
         self.assertIsInstance(r1.size, int)
 
-
     def test_for_x_attribute(self):
         """Test for x-coordinate attribute"""
         r1 = Square(3, 5, 2)
@@ -107,7 +90,6 @@ class TestSquare(unittest.TestCase):
         with self.assertRaises(TypeError) as err_0:
             Square(4, range(5), 6)
         self.assertEqual("x must be an integer", str(err_0.exception))
-
 
         self.assertEqual(r1.x, 5)
         self.assertEqual(r2.x, 0)
@@ -184,7 +166,7 @@ class TestDisplay(unittest.TestCase):
         """
         captured_output = StringIO()
         sys.stdout = captured_output
-        
+
         if (method == "print"):
             print(instance_of_class)
         else:
@@ -197,12 +179,12 @@ class TestDisplay(unittest.TestCase):
     def test_str_method(self):
         """Test the __str__ method"""
         r1 = Square(2, 1, 2, 7)
-        
+
         _str_output = "[Square] ({}) 1/2 - 2\n".format(r1.id)
         show_output = TestDisplay.show_output(r1, "print")
 
         self.assertEqual(show_output.getvalue(), _str_output)
-    
+
     def test_str_without_coord_and_id(self):
         """Test the __str__ without coordinates and id"""
         r1 = Square(2)
@@ -233,18 +215,17 @@ class TestDisplay(unittest.TestCase):
     def test_display_shape_1(self):
         """Test display shape of rectangle with '#' with coordinates"""
         show_output1 = TestDisplay.show_output(TestDisplay.without_coordinates,
-                                                       "display")
+                                               "display")
         display_output1 = "####\n####\n####\n####\n"
         self.assertEqual(show_output1.getvalue(), display_output1)
-    
+
     def test_display_shape_2(self):
         """Test shape of rectangle with '#' without coordinates"""
 
         show_output2 = TestDisplay.show_output(TestDisplay.with_coordinates,
-                                                        "display")
+                                               "display")
         display_output2 = "\n\n\n\n  ####\n  ####\n  ####\n  ####\n"
         self.assertEqual(show_output2.getvalue(), display_output2)
-
 
     def test_update_args(self):
         """Tests update method"""
@@ -302,10 +283,24 @@ class TestDisplay(unittest.TestCase):
         update6 = TestDisplay.show_output(r2, "print")
         display_update6 = "[Square] (30) 15/8 - 9\n"
 
-
         self.assertEqual(update1.getvalue(), display_update1)
         self.assertEqual(update2.getvalue(), display_update2)
         self.assertEqual(update3.getvalue(), display_update3)
         self.assertEqual(update4.getvalue(), display_update4)
         self.assertEqual(update5.getvalue(), display_update5)
         self.assertEqual(update6.getvalue(), display_update6)
+
+    def test_dictionary_representation(self):
+        """Tests dictionary representation of class"""
+        sqr = Square(4, 6, 2)
+        sqr_dict = sqr.to_dictionary()
+        sqr_display = "[Square] ({}) 6/2 - 4\n".format(sqr.id)
+
+        self.assertIsInstance(sqr_dict, dict)
+
+        sqr2 = Square(2, 2)
+        sqr2.update(**sqr_dict)
+        sqr_update = TestDisplay.show_output(sqr2, "print")
+
+        self.assertEqual(sqr_update.getvalue(), sqr_display)
+        self.assertNotEqual(sqr, sqr2)

@@ -2,29 +2,22 @@
 """
     Test module for class Base and methods in it
 """
-
-"""builtin modules"""
 from io import StringIO
 import sys
 import os
 import unittest
 import json
-
-"""local modules"""
 from models.base import Base
 from models.rectangle import Rectangle
 
 
-
 class TestRectangle(unittest.TestCase):
     """class for instantiation test"""
-    
 
     @classmethod
     def setUpClass(cls):
         """set attributes to be used throughout class"""
         pass
-        
 
     def setUp(self):
         """Set up for each test"""
@@ -43,7 +36,7 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(r1.id, r4.id - 2)
         self.assertEqual(r5.id, 3.2)
         self.assertEqual(r6.id, "Tee")
-    
+
     def test_for_width_attribute(self):
         """Test for width attribute"""
         r1 = Rectangle(34, 4)
@@ -143,7 +136,6 @@ class TestRectangle(unittest.TestCase):
             Rectangle(4, 4, range(5), 6)
         self.assertEqual("x must be an integer", str(err_0.exception))
 
-
         self.assertEqual(r1.x, 2)
         self.assertEqual(r2.x, 0)
         self.assertIsInstance(r1.x, int)
@@ -219,7 +211,7 @@ class TestDisplay(unittest.TestCase):
         """
         captured_output = StringIO()
         sys.stdout = captured_output
-        
+
         if (method == "print"):
             print(instance_of_class)
         else:
@@ -232,12 +224,12 @@ class TestDisplay(unittest.TestCase):
     def test_str_method(self):
         """Test the __str__ method"""
         r1 = Rectangle(2, 5, 1, 2, 7)
-        
+
         _str_output = "[Rectangle] ({}) 1/2 - 2/5\n".format(r1.id)
         show_output = TestDisplay.show_output(r1, "print")
 
         self.assertEqual(show_output.getvalue(), _str_output)
-    
+
     def test_str_without_coord_and_id(self):
         """Test the __str__ without coordinates and id"""
         r1 = Rectangle(2, 5)
@@ -267,18 +259,17 @@ class TestDisplay(unittest.TestCase):
     def test_display_shape_1(self):
         """Test display shape of rectangle with '#' with coordinates"""
         show_output1 = TestDisplay.show_output(TestDisplay.without_coordinates,
-                                                       "display")
+                                               "display")
         display_output1 = "####\n####\n####\n"
         self.assertEqual(show_output1.getvalue(), display_output1)
-    
+
     def test_display_shape_2(self):
         """Test shape of rectangle with '#' without coordinates"""
 
         show_output2 = TestDisplay.show_output(TestDisplay.with_coordinates,
-                                                        "display")
+                                               "display")
         display_output2 = "\n\n\n\n  ####\n  ####\n  ####\n"
         self.assertEqual(show_output2.getvalue(), display_output2)
-
 
     def test_update_args(self):
         """Tests update method"""
@@ -336,14 +327,13 @@ class TestDisplay(unittest.TestCase):
         update6 = TestDisplay.show_output(r2, "print")
         display_update6 = "[Rectangle] (30) 15/8 - 9/11\n"
 
-
         self.assertEqual(update1.getvalue(), display_update1)
         self.assertEqual(update2.getvalue(), display_update2)
         self.assertEqual(update3.getvalue(), display_update3)
         self.assertEqual(update4.getvalue(), display_update4)
         self.assertEqual(update5.getvalue(), display_update5)
         self.assertEqual(update6.getvalue(), display_update6)
-    
+
     def test_dictionary_representation(self):
         """Tests dictionary representation of class"""
         rect = Rectangle(4, 6, 2)

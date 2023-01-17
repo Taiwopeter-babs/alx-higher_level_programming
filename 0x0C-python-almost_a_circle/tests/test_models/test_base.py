@@ -5,6 +5,7 @@
 import os
 import unittest
 import json
+import csv
 
 from models.base import Base
 from models.rectangle import Rectangle
@@ -231,6 +232,114 @@ class TestJson(unittest.TestCase):
 
         Square.save_to_file(list_square_input)
         list_square_output = Square.load_from_file()
+
+        self.assertNotEqual(id(s1), id(list_square_output[0]))
+        self.assertEqual(s1.size, list_square_output[0].size)
+        self.assertEqual(s1.x, list_square_output[0].x)
+        self.assertEqual(s1.y, list_square_output[0].y)
+        self.assertEqual(s1.id, list_square_output[0].id)
+
+    def test_save_file_csv(self):
+        """Tests save_to_file for csv formatted files"""
+        try:
+            os.remove("Square.csv")
+            os.remove("Rectangle.csv")
+        except FileNotFoundError:
+            pass
+
+        """Rectangle class"""
+        rect = Rectangle(4, 10, 1, 0, 7)
+        Rectangle.save_to_file_csv([rect])
+
+        with open("Rectangle.csv", "r", newline="") as csvfile:
+            content = csv.DictReader(csvfile)
+            res = {"id": '7', "width": '4', "height": '10', "x": '1', "y": '0'}
+            for row in content:
+                self.assertEqual(res, row)
+
+        """Square class"""
+        sqr = Square(8, 20, 2, 3)
+        Square.save_to_file_csv([sqr])
+
+        with open("Square.csv", "r", newline="") as csvfile:
+            content = csv.DictReader(csvfile)
+            res = {"id": '3', "size": '8', "x": '20', "y": '2'}
+            for row in content:
+                self.assertEqual(res, row)
+
+    def test_csv_save_to_file_not_subclass_rect(self):
+        """Tests if objects' class are not subclasses of Base"""
+        with self.assertRaises(TypeError):
+            Rectangle.save_to_file_csv([self.rect, self.tuple_arg])
+
+    def test_csv_save_to_file_not_subclass_sqr(self):
+        """Tests if objects' class are not subclasses of Base"""
+        with self.assertRaises(TypeError):
+            Square.save_to_file_csv([self.sqr, self.tuple_arg])
+
+    def test_save_to_file_csv_none(self):
+        """Test for saving empty or None argument"""
+        try:
+            os.remove("Rectangle.csv")
+            os.remove("Squaree.csv")
+        except FileNotFoundError:
+            pass
+
+        Rectangle.save_to_file_csv(None)
+        Square.save_to_file_csv(None)
+
+        with open("Rectangle.csv", "r", newline='') as csvfile1:
+            content1 = csv.DictReader(csvfile1)
+            for row in content1:
+                self.assertEqual("[]", row)
+
+        with open("Square.csv", "r", newline="") as csvfile2:
+            content2 = csv.DictReader(csvfile2)
+            for row in content2:
+                self.assertEqual("[]", row)
+
+    def test_load_from_file_csv_no_file(self):
+        """Test load_from_file method on empty file"""
+        if not os.path.exists("Rectangle.csv"):
+            self.assertEqual(Rectangle.load_from_file_csv(), [])
+
+        if not os.path.exists("Square.csv"):
+            self.assertEqual(Square.load_from_file_csv(), [])
+
+    def test_load_from_file_csv_rect_exists(self):
+        """Test load_from_file method on existing file"""
+        r1 = Rectangle(10, 7, 2, 8, 789)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+
+        try:
+            os.remove("Rectangle.csv")
+        except FileNotFoundError:
+            pass
+
+        Rectangle.save_to_file_csv(list_rectangles_input)
+        list_rectangles_output = Rectangle.load_from_file_csv()
+
+        self.assertNotEqual(id(r1), id(list_rectangles_output[0]))
+        self.assertEqual(r1.width, list_rectangles_output[0].width)
+        self.assertEqual(r1.height, list_rectangles_output[0].height)
+        self.assertEqual(r1.x, list_rectangles_output[0].x)
+        self.assertEqual(r1.y, list_rectangles_output[0].y)
+        self.assertEqual(r1.id, list_rectangles_output[0].id)
+
+    def test_load_from_file_csv_sqr_exists(self):
+        """Test load_from_file method on existing file"""
+        s1 = Square(10, 7, 2, 789)
+        s2 = Square(15, 8, 12, 436)
+        list_square_input = [s1, s2]
+
+        try:
+            os.remove("Square.csv")
+        except FileNotFoundError:
+            pass
+
+        Square.save_to_file_csv(list_square_input)
+        list_square_output = Square.load_from_file_csv()
 
         self.assertNotEqual(id(s1), id(list_square_output[0]))
         self.assertEqual(s1.size, list_square_output[0].size)

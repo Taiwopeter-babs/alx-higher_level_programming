@@ -81,13 +81,13 @@ class Base:
 
         if class_name == "Rectangle":
             from models.rectangle import Rectangle
-            dummy = Rectangle(6, 7, 4, 5)
+            dummy = Rectangle(6, 7, 0, 0)
             dummy.update(**dictionary)
             return (dummy)
 
         if class_name == "Square":
             from models.square import Square
-            dummy = Square(5, 3, 7)
+            dummy = Square(5, 0, 0)
             dummy.update(**dictionary)
             return (dummy)
 

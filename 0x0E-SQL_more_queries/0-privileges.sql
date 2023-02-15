@@ -1,3 +1,3 @@
--- List privileges/permissions for users
+-- List privileges/permissions for user
 SHOW GRANTS FOR 'user_0d_1'@'localhost';
 SHOW GRANTS FOR 'user_0d_2'@'localhost';

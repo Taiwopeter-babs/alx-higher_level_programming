@@ -7,6 +7,10 @@
 
 
 def pascal_triangle(n):
+    """
+        Returns a list of lists of
+        a pattern of pascal's triangle
+    """
     in_arr = []
     outer_arr = []
 

@@ -10,6 +10,9 @@ def pascal_triangle(n):
     in_arr = []
     outer_arr = []
 
+    if (n <= 0):
+        return []
+
     row = 0
     while (row < n):
 

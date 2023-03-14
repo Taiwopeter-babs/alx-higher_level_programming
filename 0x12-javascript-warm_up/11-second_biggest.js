@@ -7,7 +7,6 @@
   const args = process.argv.slice(2);
   const arr = args.map((num) => parseInt(num, 10));
   arr.sort((a, b) => a - b);
-  console.log(arr);
 
   for (let i = arr.length - 2; i >= 0; i--) {
     if (arr[i] !== arr[arr.length - 1]) {

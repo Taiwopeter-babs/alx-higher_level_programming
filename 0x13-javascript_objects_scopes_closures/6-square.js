@@ -8,7 +8,7 @@ module.exports = class Square extends SquareOne {
 
   // method to print with different character
   charPrint (c) {
-    if (c != undefined) {
+    if (c) {
       const size = this.width;
 
       for (let i = 0; i < size; i++) {

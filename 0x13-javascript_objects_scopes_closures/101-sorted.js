@@ -8,7 +8,6 @@ const newArray = Object.values(dict).filter((value, index) => {
 
 // create a new object
 const newObject = {};
-
 /*
  * create a new array for each value of Array newArray that holds
  * the keys with values matching the values in newArray

@@ -1,12 +1,14 @@
 #!/usr/bin/node
-const dict = require('./101-data.js').dict;
+const dict = require('./101-data').dict;
+
+// create a new object
+const newObject = {};
 
 // get an array of unique values from the dict object
 const newArray = Object.values(dict).filter((value, index) => {
   return Object.values(dict).indexOf(value) === index;
 });
-// create a new object
-const newObject = {};
+
 /*
  * create a new array for each value of Array newArray that holds
  * the keys with values matching the values in newArray

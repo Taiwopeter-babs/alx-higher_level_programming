@@ -5,7 +5,6 @@ const dict = require('./101-data.js').dict;
 const newArray = Object.values(dict).filter((value, index) => {
   return Object.values(dict).indexOf(value) === index;
 });
-
 // create a new object
 const newObject = {};
 /*

@@ -14,7 +14,7 @@ module.exports = class Square extends SquareOne {
       const size = this.width;
 
       for (let i = 0; i < size; i++) {
-        console.log('C'.repeat(size));
+        console.log(c.repeat(size));
       }
     }
   }

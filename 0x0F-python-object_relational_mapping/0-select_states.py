@@ -14,7 +14,7 @@ db = MySQLdb.connect(
 )
 cur = db.cursor()
 
-cur.execute("SELECT id, name FROM states")
+cur.execute("SELECT id, name FROM states ORDER BY id")
 
 all_rows = cur.fetchall()
 for row in all_rows:

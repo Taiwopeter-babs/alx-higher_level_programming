@@ -24,7 +24,6 @@ def query_multiple_tables():
         "LEFT JOIN states st "
         "ON c.state_id = st.id ORDER BY c.id"
     )
-    print(sql_cmd)
     cur.execute(sql_cmd)
 
     all_rows = cur.fetchall()

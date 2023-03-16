@@ -8,7 +8,6 @@ PORT = 3306
 USER = argv[1]
 PASSWD = argv[2]
 D_BASE = argv[3]
-print(HOST, USER, PASSWD, D_BASE)
 
 db = MySQLdb.connect(
     host=HOST, port=PORT, user=USER, passwd=PASSWD, db=D_BASE, charset="utf8"

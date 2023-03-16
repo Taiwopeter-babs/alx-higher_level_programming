@@ -18,7 +18,9 @@ def query_with_filter():
     )
     cur = db.cursor()
 
-    cur.execute("SELECT id, name FROM states WHERE name='{}' ORDER BY id".format(arg))
+    sql_cmd = "SELECT id, name FROM states WHERE name='{}' ORDER BY id"
+
+    cur.execute(sql_cmd.format(arg))
 
     all_rows = cur.fetchall()
     for row in all_rows:

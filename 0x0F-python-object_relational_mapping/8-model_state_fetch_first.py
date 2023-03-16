@@ -7,7 +7,7 @@ from sys import argv
 
 
 def query_first_of_states():
-    """Queries all State objects"""
+    """Queries the first of State objects"""
     # Arguments from terminal
     user = argv[1]
     pwd = argv[2]
@@ -25,7 +25,7 @@ def query_first_of_states():
     # creates a new session
     session = Session()
 
-    # Query first result
+    # Query of first result
     query_states = session.query(State).first()
 
     if query_states is not None:

@@ -31,7 +31,7 @@ def update_object():
 
     # Cleanup
     session.commit()
-    session.close()
+    # session.close()
 
 
 if __name__ == "__main__":

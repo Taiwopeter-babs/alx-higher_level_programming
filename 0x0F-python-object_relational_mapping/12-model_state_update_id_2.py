@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sys import argv
 
 
-def update_object():
+if __name__ == "__main__":
     """Queries the first of State objects"""
     # Arguments from terminal
     user = argv[1]
@@ -32,7 +32,3 @@ def update_object():
     # Cleanup
     session.commit()
     # session.close()
-
-
-if __name__ == "__main__":
-    update_object()

@@ -26,11 +26,8 @@ def update_object():
     session = Session()
 
     # Query object and update
-    query_object = session.query(State).filter_by(id=2)
+    query_object = session.query(State).filter_by(id=2).first()
     query_object.name = "New Mexico"
-
-    # Print query result
-    print(query_object.name)
 
     # Cleanup
     session.commit()

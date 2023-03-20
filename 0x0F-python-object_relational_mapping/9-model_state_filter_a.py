@@ -7,7 +7,7 @@ from sys import argv
 
 
 def filter_query():
-    """Queries the first of State objects"""
+    """Queries the State objects by character"""
     # Arguments from terminal
     user = argv[1]
     pwd = argv[2]

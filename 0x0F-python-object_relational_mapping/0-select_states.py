@@ -17,7 +17,7 @@ def query_data():
     )
     cur = db.cursor()
 
-    cur.execute("SELECT id, name FROM states ORDER BY id")
+    cur.execute("SELECT * FROM states ORDER BY id")
 
     all_rows = cur.fetchall()
     for row in all_rows:

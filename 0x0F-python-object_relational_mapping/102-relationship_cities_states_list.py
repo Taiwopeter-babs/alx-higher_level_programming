@@ -10,6 +10,9 @@ from sys import argv
 
 
 def query_city_objects_with_relationship():
+    """
+        Creates new objects
+    """
     try:
         USER = argv[1]
         PWD = argv[2]

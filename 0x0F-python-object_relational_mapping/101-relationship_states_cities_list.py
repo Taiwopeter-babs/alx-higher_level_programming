@@ -26,8 +26,7 @@ def query_all_objects_with_relationship():
     # create a session
     session = Session()
 
-    query = session.query(State).join(
-                    State.cities).order_by(State.id, City.id).all()
+    query = session.query(State).all()
 
     for state in query:
         print("{}: {}".format(state.id, state.name))

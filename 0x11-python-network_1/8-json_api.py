@@ -6,10 +6,7 @@ from sys import argv
 
 def get_request_status(letter: str):
     payload = {}
-    if letter:
-        payload["q"] = letter
-    else:
-        payload["q"] = ""
+    payload["q"] = letter
 
     url = "http://0.0.0.0:5000/search_user"
     req = requests.post(url, data=payload)

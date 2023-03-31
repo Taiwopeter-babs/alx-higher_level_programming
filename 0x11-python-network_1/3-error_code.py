@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This script sends a POST request to the url"""
+"""This script manages HTTP errors"""
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 from urllib.parse import urlencode

@@ -2,18 +2,18 @@
 """This script sends a POST request to the url"""
 from urllib.request import urlopen, Request
 from urllib.error import URLError
-from urllib.parse import quote
+from urllib.parse import urlencode
 from sys import argv
 
 
 def make_post_request(url_str: str, email_arg: str):
     try:
-        data = quote(email_arg)
-        email = data.encode("ascii")
-        req = Request(url_str, data=email)
+        data = urlencode({"email": email_arg})
+        email = data.encode("utf-8")
+        req = Request(url_str, email)
         with urlopen(req) as response:
             body = response.read()
-        print(body.decode("ascii"))
+        print(body.decode("utf-8"))
     except URLError as e:
         if hasattr(e, "reason"):
             print(e.reason)

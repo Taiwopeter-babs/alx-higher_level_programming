@@ -1,16 +1,19 @@
 #!/usr/bin/python3
-"""This script makes a request to the url and gets a header value"""
+"""This script sends a POST request to the url"""
 from urllib.request import urlopen, Request
 from urllib.error import URLError
+from urllib.parse import urlencode
 from sys import argv
 
 
-def get_header_value(url_str: str):
+def make_post_request(url_str: str, email_arg: str):
     try:
-        req = Request(url_str)
+        data = urlencode(email_arg)
+        email = data.encode("ascii")
+        req = Request(url_str, email)
         with urlopen(req) as response:
             body = response.read()
-        print(response.info().get("X-Request-Id"))
+        print("Your email is: {}".format(body.decode("utf-8")))
     except URLError as e:
         if hasattr(e, "reason"):
             print(e.reason)
@@ -19,4 +22,7 @@ def get_header_value(url_str: str):
 
 
 if __name__ == "__main__":
-    get_header_value(argv[1])
+    try:
+        make_post_request(argv[1], argv[2])
+    except IndexError:
+        raise

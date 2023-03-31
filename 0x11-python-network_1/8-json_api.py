@@ -11,7 +11,7 @@ def get_request_status(letter: str):
     url = "http://0.0.0.0:5000/search_user"
     req = requests.post(url, data=payload)
 
-    if isinstance(req, dict):
+    if isinstance(eval(req.text), dict):
         resp_dict = req.json()
         if resp_dict:
             print("[{}] {}".format(resp_dict.get("id"), resp_dict.get("name")))
@@ -23,6 +23,8 @@ def get_request_status(letter: str):
 
 if __name__ == "__main__":
     try:
-        get_request_status(argv[1])
+        letter = argv[1]
+        get_request_status(letter)
     except IndexError:
-        get_request_status("")
+        letter = ""
+        get_request_status(letter)

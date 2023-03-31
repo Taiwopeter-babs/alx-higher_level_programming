@@ -4,20 +4,19 @@ import requests
 from sys import argv
 
 
-def get_request_status():
+def get_request_status(letter: str):
     payload = {}
-
-    if len(argv) > 1:
-        payload["q"] = argv[1]
-    elif len(argv) == 1:
+    if letter:
+        payload["q"] = letter
+    else:
         payload["q"] = ""
 
     url = "http://0.0.0.0:5000/search_user"
     req = requests.post(url, data=payload)
 
-    if isinstance(req.json(), dict):
+    if isinstance(req, dict):
         resp_dict = req.json()
-        if len(resp_dict) != 0:
+        if resp_dict:
             print("[{}] {}".format(resp_dict.get("id"), resp_dict.get("name")))
         else:
             print("No result")
@@ -26,4 +25,7 @@ def get_request_status():
 
 
 if __name__ == "__main__":
-    get_request_status(argv[1])
+    try:
+        get_request_status(argv[1])
+    except IndexError:
+        get_request_status("")

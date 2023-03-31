@@ -11,7 +11,7 @@ def get_request_status(letter: str):
     url = "http://0.0.0.0:5000/search_user"
     req = requests.post(url, data=payload)
 
-    if isinstance(eval(req.text), dict):
+    if isinstance(req.json(), dict):
         resp_dict = req.json()
         if resp_dict:
             print("[{}] {}".format(resp_dict.get("id"), resp_dict.get("name")))

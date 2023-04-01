@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """This script communicates with an API and gets a JSON formatted value"""
 import requests
-from requests.exceptions import JSONDecodeError
 from sys import argv
 
 
@@ -12,13 +11,13 @@ def get_request_status(letter: str):
     url = "http://0.0.0.0:5000/search_user"
     req = requests.post(url, data=payload)
 
-    try:
+    if isinstance(req.json(), dict):
         resp_dict = req.json()
         if resp_dict:
             print("[{}] {}".format(resp_dict.get("id"), resp_dict.get("name")))
         else:
             print("No result")
-    except JSONDecodeError:
+    else:
         print("Not a valid JSON")
 
 

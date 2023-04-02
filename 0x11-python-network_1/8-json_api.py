@@ -24,7 +24,7 @@ def get_request_status(letter: str):
 if __name__ == "__main__":
     try:
         letter = argv[1]
-        get_request_status(letter)
     except IndexError:
         letter = ""
+    finally:
         get_request_status(letter)

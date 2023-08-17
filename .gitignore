@@ -1,0 +1,4 @@
+file*
+**__pycache__/
+**.sh
+**.sql

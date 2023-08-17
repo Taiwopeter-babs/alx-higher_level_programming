@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This script makes a request to the url and gets a header value"""
+"""This script makes a request to the url and gets a header"""
 from urllib.request import urlopen, Request
 from urllib.error import URLError
 from sys import argv
